@@ -3,7 +3,6 @@ package ngenes2.components;
 
 import java.util.ArrayList;
 import ngenes2.fitness.Fitness;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

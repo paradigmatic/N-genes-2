@@ -21,6 +21,7 @@ public class ClassicWorkflow<G,I extends WritableIndividual<G>> implements Workf
         this.mutator = mutator;
     }
 
+    //TODO: write tests
     public void evolve(Population<G,I> population) {
         for( int t=0; t<numberOfGeneration; t++ ) {
             int count = 0;
