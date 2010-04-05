@@ -7,7 +7,12 @@ import ngenes2.ops.mutator.Mutator;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.Population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I>{
+
+    private final Logger logger = LoggerFactory.getLogger(ClassicEvolver.class);
 
     final int numberOfGeneration;
     final Selector<I> selector;
@@ -23,7 +28,9 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
 
     //TODO: write tests
     public void evolve(Population<G,I> population) {
+        logger.info("Starting evolution");
         for( int t=0; t<numberOfGeneration; t++ ) {
+            logger.debug("Generation: " + t);
             int count = 0;
             while( count < population.size() ) {
                 final I i1 = selector.select(population);
@@ -34,7 +41,10 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
                 }
                 count += lst.size();
             }
+            population.nextGeneration();
+
         }
+        logger.info("Evolution finished");
     }
 
 

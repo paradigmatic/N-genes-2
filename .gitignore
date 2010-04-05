@@ -3,6 +3,7 @@
 *#
 
 build.xml
+build-before-profiler.xml
 build/
 manifest.mf
 nbproject/

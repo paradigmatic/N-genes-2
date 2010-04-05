@@ -34,8 +34,8 @@ public class MaxOnes {
 
     public static void main(String[] args) {
         Random rng = new Random();
-        final int indSize = 20;
-        final int popSize = 10;
+        final int indSize = 20000;
+        final int popSize = 1000;
         final int genNum = 50;
         Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
