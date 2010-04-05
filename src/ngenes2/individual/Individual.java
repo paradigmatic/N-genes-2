@@ -17,5 +17,6 @@ public interface Individual<G,I extends Individual<G,I>> {
     public List<G> chromosome();
 
     public I makeSibling( List<G> newChromosome );
+    
 
 }

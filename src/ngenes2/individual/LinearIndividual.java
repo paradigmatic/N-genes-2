@@ -3,8 +3,6 @@ package ngenes2.individual;
 import java.util.Collections;
 import java.util.List;
 import ngenes2.fitness.Fitness;
-import ngenes2.ops.mutator.ChromosomeMutator;
-
 
 public class LinearIndividual<G> implements Individual<G,LinearIndividual<G>> {
 
@@ -48,4 +46,9 @@ public class LinearIndividual<G> implements Individual<G,LinearIndividual<G>> {
         return fitFunc;
     }
 
+    public static class Factory<G> implements IndividualFactory<G,LinearIndividual<G>> {
+        public LinearIndividual<G> makeIndividual(Fitness<G> fitFunc, List<G> chromosome) {
+            return new LinearIndividual<G>(fitFunc,chromosome);
+        }
+    }
 }
