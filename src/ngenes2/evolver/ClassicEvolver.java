@@ -10,11 +10,11 @@ import ngenes2.population.Population;
 public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I>{
 
     final int numberOfGeneration;
-    final Selector<G,I> selector;
+    final Selector<I> selector;
     final Crossover<G,I> crossover;
     final Mutator<G,I> mutator;
 
-    public ClassicEvolver(int numberOfGeneration, Selector<G,I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
+    public ClassicEvolver(int numberOfGeneration, Selector<I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
         this.numberOfGeneration = numberOfGeneration;
         this.selector = selector;
         this.crossover = crossover;

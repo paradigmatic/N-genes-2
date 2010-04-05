@@ -45,8 +45,8 @@ public class MaxOnes {
                 );
         Population<Boolean,LinearIndividual<Boolean>> pop =
                 new BasicPopulation<Boolean, LinearIndividual<Boolean>>( gen.generate(popSize ));
-        Selector<Boolean,LinearIndividual<Boolean>> sel = 
-                new KTournament<Boolean, LinearIndividual<Boolean>>(rng,3);
+        Selector<LinearIndividual<Boolean>> sel = 
+                new KTournament<LinearIndividual<Boolean>>(rng,3);
         Crossover<Boolean,LinearIndividual<Boolean>> co =
                 new Crossover<Boolean, LinearIndividual<Boolean>>( new MidBreakCrossover<Boolean>() );
         Mutator<Boolean,LinearIndividual<Boolean>> mut = new Mutator<Boolean, LinearIndividual<Boolean>>(

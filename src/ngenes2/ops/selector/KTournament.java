@@ -5,7 +5,7 @@ import ngenes2.individual.Individual;
 import ngenes2.population.Population;
 
 
-public class KTournament<G, I extends Individual<G,I>> implements Selector<G,I> {
+public class KTournament<I extends Individual<?,I>> implements Selector<I> {
 
     private final int K;
     private final Random rng;
@@ -15,11 +15,11 @@ public class KTournament<G, I extends Individual<G,I>> implements Selector<G,I> 
         this.rng = rng;
     }
 
-    private I getRandom( Population<G, I> pop ) {
+    private I getRandom( Population<?,I> pop ) {
        return pop.get( rng.nextInt( pop.size() ) );
     }
 
-    public I select(Population<G, I> pop) {
+    public I select(Population<?,I> pop) {
         I winner = getRandom(pop);
         double bestFitness = winner.fitness();
         for( int i=1; i<K; i++ ) {
