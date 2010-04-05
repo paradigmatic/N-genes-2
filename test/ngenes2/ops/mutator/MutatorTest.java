@@ -1,7 +1,8 @@
 package ngenes2.ops.mutator;
 
 
-import ngenes2.individual.ChromosomeMutable;
+import java.util.ArrayList;
+import ngenes2.individual.Individual;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
@@ -12,12 +13,13 @@ public class MutatorTest {
 
     @Test
     public void testMutate() {
-        ChromosomeMutable<Integer,? extends ChromosomeMutable<Integer,?>> mutable =
-                mock(ChromosomeMutable.class);
+        Individual<Integer,? extends Individual<Integer,?>> individual =
+                mock(Individual.class);
+        when( individual.chromosome() ).thenReturn(new ArrayList(0));
         ChromosomeMutator<Integer> chromMutator = mock( ChromosomeMutator.class );
         Mutator mutator = new Mutator(chromMutator);
-        mutator.mutate(mutable);
-        verify(mutable).mutate(chromMutator);
+        mutator.mutate(individual);
+        verify(individual).makeSibling(new ArrayList(0) );
     }
 
 }

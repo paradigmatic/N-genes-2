@@ -5,7 +5,7 @@ import ngenes2.individual.Individual;
 import ngenes2.population.Population;
 
 
-public class KTournament<G, I extends Individual<G>> implements Selector<G,I> {
+public class KTournament<G, I extends Individual<G,I>> implements Selector<G,I> {
 
     private final int K;
     private final Random rng;

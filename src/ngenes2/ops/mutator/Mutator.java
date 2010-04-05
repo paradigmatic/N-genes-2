@@ -1,9 +1,10 @@
 package ngenes2.ops.mutator;
 
-import ngenes2.individual.ChromosomeMutable;
+import java.util.List;
+import ngenes2.individual.Individual;
 
 
-public class Mutator<G,I extends ChromosomeMutable<G,I>> {
+public class Mutator<G,I extends Individual<G,I>> {
 
     private final ChromosomeMutator<G> chromosomeMutator;
 
@@ -12,6 +13,7 @@ public class Mutator<G,I extends ChromosomeMutable<G,I>> {
     }
 
     public I mutate( I before ) {
-        return before.mutate(chromosomeMutator);
+        List<G> newChromosome = chromosomeMutator.mutate( before.chromosome() );
+        return before.makeSibling(newChromosome);
     }
 }
