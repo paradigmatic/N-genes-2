@@ -19,7 +19,7 @@ public class MutatorTest {
         ChromosomeMutator<Integer> chromMutator = mock( ChromosomeMutator.class );
         Mutator mutator = new Mutator(chromMutator);
         mutator.mutate(individual);
-        verify(individual).makeSibling(new ArrayList(0) );
+        verify(individual).makeSibling( new ArrayList(0) );
     }
 
 }
