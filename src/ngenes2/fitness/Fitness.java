@@ -1,6 +1,6 @@
 package ngenes2.fitness;
 
-import ngenes2.components.Individual;
+import ngenes2.individual.Individual;
 
 
 public interface Fitness<G> {

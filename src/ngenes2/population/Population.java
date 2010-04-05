@@ -1,6 +1,6 @@
 package ngenes2.population;
 
-import ngenes2.components.WritableIndividual;
+import ngenes2.individual.WritableIndividual;
 
 public interface Population<G,I extends WritableIndividual<G>> {
     public int size();

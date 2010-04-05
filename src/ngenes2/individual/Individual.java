@@ -1,4 +1,4 @@
-package ngenes2.components;
+package ngenes2.individual;
 
 
 public interface Individual<G> {

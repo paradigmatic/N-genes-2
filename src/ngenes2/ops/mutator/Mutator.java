@@ -1,7 +1,17 @@
 package ngenes2.ops.mutator;
 
-import ngenes2.components.WritableIndividual;
+import ngenes2.individual.ChromosomeMutable;
 
-public interface Mutator<G,I extends WritableIndividual<G>> {
-    public I mutate( I before );
+
+public class Mutator<G,I extends ChromosomeMutable<G,I>> {
+
+    private final ChromosomeMutator<G> chromosomeMutator;
+
+    public Mutator(ChromosomeMutator<G> chromosomeMutator) {
+        this.chromosomeMutator = chromosomeMutator;
+    }
+
+    public I mutate( I before ) {
+        return before.mutate(chromosomeMutator);
+    }
 }
