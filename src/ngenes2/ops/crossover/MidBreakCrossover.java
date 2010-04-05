@@ -9,7 +9,7 @@ public class MidBreakCrossover<G> implements ChromosomeCrossover<G> {
 
     public List<List<G>> mate(List<G> chrome1, List<G> chrome2) {
          if( chrome1.size() != chrome2.size() ) {
-            throw new IllegalStateException( "Chromosomes must have same size.");
+            throw new IllegalArgumentException( "Chromosomes must have same size.");
         }
         final int breakPoint = chrome1.size() / 2;
         List<G> newChrome1 = new ArrayList<G>( chrome1 );
