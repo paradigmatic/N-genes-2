@@ -5,7 +5,7 @@ import ngenes2.fitness.Fitness;
 import ngenes2.ops.mutator.ChromosomeMutator;
 
 
-public class LinearIndividual<G> implements WritableIndividual<G>,
+public class LinearIndividual<G> implements Individual<G>,
         ChromosomeMutable<G,LinearIndividual<G>> {
 
     private final List<G> genes;
@@ -14,13 +14,6 @@ public class LinearIndividual<G> implements WritableIndividual<G>,
     public LinearIndividual( Fitness<G> fitness, List<G> genes ) {
         this.genes = genes;
         this.fitFunc = fitness;
-    }
-
-    public G set(int i, G value) {
-        if( i > genes.size() ) {
-            throw new IndexOutOfBoundsException();
-        }
-        return genes.set(i, value);
     }
 
     public double fitness() {

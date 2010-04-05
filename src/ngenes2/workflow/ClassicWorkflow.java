@@ -2,13 +2,13 @@ package ngenes2.workflow;
 
 import java.util.List;
 import ngenes2.individual.ChromosomeMutable;
-import ngenes2.individual.WritableIndividual;
+import ngenes2.individual.Individual;
 import ngenes2.ops.crossover.Crossover;
 import ngenes2.ops.mutator.Mutator;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.Population;
 
-public class ClassicWorkflow<G,I extends WritableIndividual<G> & ChromosomeMutable<G,I>> implements Workflow <G,I>{
+public class ClassicWorkflow<G,I extends Individual<G> & ChromosomeMutable<G,I>> implements Workflow <G,I>{
 
     final int numberOfGeneration;
     final Selector<G,I> selector;

@@ -1,6 +1,6 @@
 package ngenes2.components;
 
-import ngenes2.individual.WritableIndividual;
+import ngenes2.individual.Individual;
 import ngenes2.individual.LinearIndividual;
 import ngenes2.individual.Individual;
 import java.util.ArrayList;
@@ -33,12 +33,6 @@ public class LinearIndividualTest {
         individual = new LinearIndividual<Integer>(fixedFitness, chromosome);
     }
 
-    @Test
-    public void testSet() {
-        final int before = individual.get(1);
-        individual.set(1, before + 20);
-        assertEquals(individual.get(1), new Integer( before+20 ) );
-    }
 
     @Test
     public void testFitness() {
@@ -64,7 +58,7 @@ public class LinearIndividualTest {
                 return lst;
             }
         };
-        final WritableIndividual<Integer> newInd = individual.mutate(mutator);
+        final Individual<Integer> newInd = individual.mutate(mutator);
         assertEquals( new Integer(0), individual.get(0));
         assertEquals( new Integer(15), newInd.get(0));
         assertEquals( individual.get(1), newInd.get(1));
