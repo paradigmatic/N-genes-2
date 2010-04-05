@@ -1,8 +1,8 @@
 package ngenes2.population;
 
-import ngenes2.individual.WritableIndividual;
+import ngenes2.individual.Individual;
 
-public interface Population<G,I extends WritableIndividual<G>> {
+public interface Population<G,I extends Individual<G>> {
     public int size();
     public I get(int i);
     public void addToNextGeneration( I newIndividual );
