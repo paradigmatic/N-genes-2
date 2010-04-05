@@ -1,4 +1,4 @@
-package ngenes2.workflow;
+package ngenes2.evolver;
 
 import java.util.List;
 import ngenes2.individual.Individual;
@@ -7,14 +7,14 @@ import ngenes2.ops.mutator.Mutator;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.Population;
 
-public class ClassicWorkflow<G,I extends Individual<G,I>> implements Workflow <G,I>{
+public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I>{
 
     final int numberOfGeneration;
     final Selector<G,I> selector;
     final Crossover<G,I> crossover;
     final Mutator<G,I> mutator;
 
-    public ClassicWorkflow(int numberOfGeneration, Selector<G,I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
+    public ClassicEvolver(int numberOfGeneration, Selector<G,I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
         this.numberOfGeneration = numberOfGeneration;
         this.selector = selector;
         this.crossover = crossover;

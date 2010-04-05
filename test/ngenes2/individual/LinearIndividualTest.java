@@ -1,11 +1,8 @@
-package ngenes2.components;
+package ngenes2.individual;
 
-import ngenes2.individual.LinearIndividual;
-import ngenes2.individual.Individual;
 import java.util.ArrayList;
 import java.util.List;
 import ngenes2.fitness.Fitness;
-import ngenes2.ops.mutator.ChromosomeMutator;
 import org.junit.Before;
 import org.junit.Test;
 
