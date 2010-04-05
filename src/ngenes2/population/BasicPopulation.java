@@ -2,6 +2,7 @@
 package ngenes2.population;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import ngenes2.individual.Individual;
 
@@ -10,9 +11,16 @@ public class BasicPopulation<G,I extends Individual<G,I>> implements Population<
     private List<I> current;
     private List<I> next;
 
-    public BasicPopulation( List<I> initialInidviduals ) {
-        current = new ArrayList<I>( initialInidviduals );
-        next = new ArrayList<I>( initialInidviduals.size() );
+    public BasicPopulation( Iterable<I> initialIndividuals ) {
+        this( initialIndividuals.iterator() );
+    }
+
+    public BasicPopulation( Iterator<I> initialIndividuals ) {
+        current = new ArrayList<I>();
+        while( initialIndividuals.hasNext() ) {
+            current.add( initialIndividuals.next() );
+        }
+        next = new ArrayList<I>(current.size());
     }
 
     public int size() {
