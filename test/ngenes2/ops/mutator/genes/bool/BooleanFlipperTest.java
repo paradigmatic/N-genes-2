@@ -1,11 +1,11 @@
-package ngenes2.ops.mutator.genes;
+package ngenes2.ops.mutator.genes.bool;
+
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 
 public class BooleanFlipperTest {
-
 
     @Test
     public void testMutate() {

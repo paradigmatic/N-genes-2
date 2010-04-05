@@ -1,5 +1,6 @@
-package ngenes2.ops.mutator.genes;
+package ngenes2.ops.mutator.genes.bool;
 
+import ngenes2.ops.mutator.genes.*;
 import java.util.Random;
 
 //TODO: tests

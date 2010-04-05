@@ -1,4 +1,6 @@
-package ngenes2.ops.mutator.genes;
+package ngenes2.ops.mutator.genes.bool;
+
+import ngenes2.ops.mutator.genes.*;
 
 public class BooleanFlipper implements GeneMutator<Boolean> {
 
