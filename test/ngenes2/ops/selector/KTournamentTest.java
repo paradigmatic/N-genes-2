@@ -3,6 +3,7 @@ package ngenes2.ops.selector;
 import java.util.Random;
 import ngenes2.individual.Individual;
 import ngenes2.population.Population;
+import ngenes2.util.Properties;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,8 +27,9 @@ public class KTournamentTest {
         when( pop.size() ).thenReturn(2);
         when( pop.get(0) ).thenReturn(ind1);
         when( pop.get(1) ).thenReturn(ind2);
+        Properties props = new Properties().put("tournament_size", 2);
         KTournament tournament =
-                   new KTournament(rng,2);
+                   new KTournament(rng,props);
         Individual winner = tournament.select(pop);
         assertSame( ind1, winner );
     }

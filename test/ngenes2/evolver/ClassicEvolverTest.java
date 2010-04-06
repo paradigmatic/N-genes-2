@@ -7,6 +7,7 @@ import ngenes2.ops.crossover.Crossover;
 import ngenes2.ops.mutator.Mutator;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.Population;
+import ngenes2.util.Properties;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import static org.mockito.Mockito.*;
@@ -45,7 +46,8 @@ public class ClassicEvolverTest {
         when(sel.select(anyPopulation())).thenReturn( ind );
         final Mutator mut = mock(Mutator.class);
         when( mut.mutate( anyIndividual() ) ).thenReturn( ind );
-        final Evolver flow = new ClassicEvolver(numGen, sel, co, mut);
+        Properties props = new Properties().put("generations",numGen);
+        final Evolver flow = new ClassicEvolver(props, sel, co, mut);
         final Population pop = mock(Population.class);
         when( pop.size() ).thenReturn( popSize );
         when( pop.get( anyInt() ) ).thenReturn( ind );

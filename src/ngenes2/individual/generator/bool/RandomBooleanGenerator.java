@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import ngenes2.individual.generator.ChromosomeGenerator;
+import ngenes2.util.Properties;
 
 public class RandomBooleanGenerator implements ChromosomeGenerator<Boolean> {
 
     final private Random rng;
     final private int size;
 
-    public RandomBooleanGenerator(Random rng, int size) {
+    public RandomBooleanGenerator(Random rng, Properties props) {
         this.rng = rng;
-        this.size = size;
+        this.size = props.getInt("chromosome_size");
     }
 
     private Boolean randomValue() {
