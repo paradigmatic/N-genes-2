@@ -21,16 +21,6 @@ public class ClassicInstanciator {
         pico.addComponent(new Random());
     }
 
-    public ClassicInstanciator withParameter(String key, int value ) {
-        pico.addComponent(key,value);
-        return this;
-    }
-
-    public <T> ClassicInstanciator withParametrized( Class<T> klass ) {
-        pico.as(Characteristics.USE_NAMES).addComponent(klass);
-        return this;
-    }
-
     public <T> ClassicInstanciator with( Class<T> klass ) {
         pico.addComponent(klass);
         return this;

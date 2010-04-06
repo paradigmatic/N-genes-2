@@ -1,6 +1,5 @@
 package ngenes2.examples;
 
-import java.util.Iterator;
 import java.util.Random;
 import ngenes2.ClassicInstanciator;
 import ngenes2.evolver.ClassicEvolver;
@@ -15,19 +14,13 @@ import ngenes2.ops.crossover.MidBreakCrossover;
 import ngenes2.ops.mutator.Mutator;
 import ngenes2.ops.mutator.PointMutation;
 import ngenes2.ops.mutator.genes.bool.BooleanFlipper;
-import ngenes2.ops.mutator.genes.bool.BooleanRandomMutator;
 import ngenes2.ops.selector.KTournament;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
 import ngenes2.util.Properties;
 
-import ngenes2.population.PopulationFactory;
-import org.picocontainer.DefaultPicoContainer;
 
-import org.picocontainer.injectors.Provider;
-import org.picocontainer.injectors.ProviderAdapter;
-import static org.picocontainer.Characteristics.USE_NAMES;
 
 public class MaxOnes {
 
@@ -73,42 +66,18 @@ public class MaxOnes {
         System.out.println("Pouet");
     }
 
-    private static void exampleWithPico() {
-        DefaultPicoContainer pico = new DefaultPicoContainer();
-        pico.addComponent(new Random());
-        pico.addComponent("chromosomeSize", 200);
-        pico.addComponent("K", 3);
-        pico.addComponent("numberOfGeneration", 50);
-        pico.addComponent("populationSize", 50);
-        pico.addComponent(LinearIndividual.Factory.class);
-        pico.addComponent(fitFunc);
-        pico.as(USE_NAMES).addComponent(RandomBooleanGenerator.class);
-        pico.addComponent(Generator.class);
-        pico.addComponent(BasicPopulation.Factory.class);
-        pico.as(USE_NAMES).addComponent(KTournament.class);
-        pico.addComponent(BooleanFlipper.class);
-        pico.addComponent(PointMutation.class);
-        pico.addComponent(Mutator.class);
-        pico.addComponent(MidBreakCrossover.class);
-        pico.addComponent(Crossover.class);
-        pico.as(USE_NAMES).addComponent(ClassicEvolver.class);
-        pico.start();
-        Generator gen = pico.getComponent(Generator.class);
-        Population pop = pico.getComponent(PopulationFactory.class).create(gen, 50);
-        Evolver e = pico.getComponent(Evolver.class);
-        e.evolve(pop);
-    }
 
     private static void exampleWithClassicInstanciator() {
+        Properties prop = new Properties()
+                .put("tournament_size",3)
+                .put("chromosome_size", 20)
+                .put("generations", 50);
         ClassicInstanciator inst = new ClassicInstanciator()
-                .withParameter("chromosomeSize", 200)
-                .withParameter("K", 3)
-                .withParameter("numberOfGeneration", 50)
-                .withParameter("populationSize", 50)
+                .with(prop)
                 .with(LinearIndividual.Factory.class)
                 .with(fitFunc)
-                .withParametrized(RandomBooleanGenerator.class)
-                .withParametrized(KTournament.class)
+                .with(RandomBooleanGenerator.class)
+                .with(KTournament.class)
                 .with(BooleanFlipper.class)
                 .with(PointMutation.class)
                 .with(MidBreakCrossover.class);
