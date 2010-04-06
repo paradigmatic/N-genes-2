@@ -7,6 +7,7 @@ import ngenes2.ops.mutator.Mutator;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.Population;
 
+import ngenes2.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +20,8 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
     final Crossover<G,I> crossover;
     final Mutator<G,I> mutator;
 
-    public ClassicEvolver(int numberOfGeneration, Selector<I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
-        this.numberOfGeneration = numberOfGeneration;
+    public ClassicEvolver(Properties props, Selector<I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
+        this.numberOfGeneration = props.getInt("generations");
         this.selector = selector;
         this.crossover = crossover;
         this.mutator = mutator;

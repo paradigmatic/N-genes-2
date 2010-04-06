@@ -3,6 +3,7 @@ package ngenes2.ops.selector;
 import java.util.Random;
 import ngenes2.individual.Individual;
 import ngenes2.population.Population;
+import ngenes2.util.Properties;
 
 
 public class KTournament<I extends Individual<?,I>> implements Selector<I> {
@@ -10,8 +11,8 @@ public class KTournament<I extends Individual<?,I>> implements Selector<I> {
     private final int K;
     private final Random rng;
 
-    public KTournament(Random rng, int K) {
-        this.K = K;
+    public KTournament(Random rng, Properties props) {
+        this.K = props.getInt("tournament_size");
         this.rng = rng;
     }
 

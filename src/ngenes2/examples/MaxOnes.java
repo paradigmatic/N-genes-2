@@ -20,6 +20,7 @@ import ngenes2.ops.selector.KTournament;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
+import ngenes2.util.Properties;
 
 import ngenes2.population.PopulationFactory;
 import org.picocontainer.DefaultPicoContainer;
@@ -48,21 +49,26 @@ public class MaxOnes {
         final int indSize = 200;
         final int popSize = 100;
         final int genNum = 50;
-        Generator<Boolean, LinearIndividual<Boolean>> gen =
+        Properties props = new Properties().put("tournament_size",3).
+                put("chromosome_size", 20).
+                put("generations", 50);
+        Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
                 new LinearIndividual.Factory(),
                 fitFunc,
-                new RandomBooleanGenerator(rng, indSize));
-        Population<Boolean, LinearIndividual<Boolean>> pop =
-                new BasicPopulation<Boolean, LinearIndividual<Boolean>>(gen.generate(popSize));
-        Selector<LinearIndividual<Boolean>> sel =
-                new KTournament<LinearIndividual<Boolean>>(rng, 3);
-        Crossover<Boolean, LinearIndividual<Boolean>> co =
-                new Crossover<Boolean, LinearIndividual<Boolean>>(new MidBreakCrossover<Boolean>());
-        Mutator<Boolean, LinearIndividual<Boolean>> mut = new Mutator<Boolean, LinearIndividual<Boolean>>(
-                new PointMutation<Boolean>(rng, new BooleanFlipper()));
-        Evolver<Boolean, LinearIndividual<Boolean>> evolver =
-                new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(genNum, sel, co, mut);
+                new RandomBooleanGenerator(rng, props)
+                );
+        Population<Boolean,LinearIndividual<Boolean>> pop =
+                new BasicPopulation<Boolean, LinearIndividual<Boolean>>( gen.generate(popSize ));
+        Selector<LinearIndividual<Boolean>> sel = 
+                new KTournament<LinearIndividual<Boolean>>(rng,props);
+        Crossover<Boolean,LinearIndividual<Boolean>> co =
+                new Crossover<Boolean, LinearIndividual<Boolean>>( new MidBreakCrossover<Boolean>() );
+        Mutator<Boolean,LinearIndividual<Boolean>> mut = new Mutator<Boolean, LinearIndividual<Boolean>>(
+                    new PointMutation<Boolean>( rng, new BooleanFlipper() )
+                );
+        Evolver<Boolean,LinearIndividual<Boolean>> evolver =
+                new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(props, sel, co, mut);
         evolver.evolve(pop);
         System.out.println("Pouet");
     }
