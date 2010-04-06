@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import ngenes2.individual.Individual;
+import ngenes2.individual.generator.Generator;
 
 public class BasicPopulation<G,I extends Individual<G,I>> implements Population<G,I> {
 
@@ -40,6 +41,13 @@ public class BasicPopulation<G,I extends Individual<G,I>> implements Population<
         next = current;
         current = tmp;
         next.clear();
+    }
+
+    public static class Factory<G,I extends Individual<G,I>>
+            implements PopulationFactory<G,I,BasicPopulation<G,I>>  {
+        public BasicPopulation<G, I> create(Generator<G, I> gen, int popSize) {
+            return new BasicPopulation<G, I>( gen.generate(popSize) );
+        }
     }
 
 

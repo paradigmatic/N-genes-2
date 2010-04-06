@@ -10,9 +10,9 @@ public class RandomBooleanGenerator implements ChromosomeGenerator<Boolean> {
     final private Random rng;
     final private int size;
 
-    public RandomBooleanGenerator(Random rng, int size) {
+    public RandomBooleanGenerator(Random rng, int chromosomeSize) {
         this.rng = rng;
-        this.size = size;
+        this.size = chromosomeSize;
     }
 
     private Boolean randomValue() {

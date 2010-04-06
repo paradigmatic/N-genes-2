@@ -1,5 +1,6 @@
 package ngenes2.examples;
 
+import java.util.Iterator;
 import java.util.Random;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
@@ -18,6 +19,13 @@ import ngenes2.ops.selector.Selector;
 import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
 
+import ngenes2.population.PopulationFactory;
+import org.picocontainer.DefaultPicoContainer;
+
+import org.picocontainer.injectors.Provider;
+import org.picocontainer.injectors.ProviderAdapter;
+import static org.picocontainer.Characteristics.USE_NAMES;
+
 public class MaxOnes {
 
     private final static Fitness<Boolean> fitFunc = new Fitness<Boolean>() {
@@ -32,10 +40,10 @@ public class MaxOnes {
         }
     };
 
-    public static void main(String[] args) {
-        Random rng = new Random();
-        final int indSize = 20000;
-        final int popSize = 1000;
+    private static void exampleByHand() {
+       Random rng = new Random();
+        final int indSize = 200;
+        final int popSize = 100;
         final int genNum = 50;
         Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
@@ -45,7 +53,7 @@ public class MaxOnes {
                 );
         Population<Boolean,LinearIndividual<Boolean>> pop =
                 new BasicPopulation<Boolean, LinearIndividual<Boolean>>( gen.generate(popSize ));
-        Selector<LinearIndividual<Boolean>> sel = 
+        Selector<LinearIndividual<Boolean>> sel =
                 new KTournament<LinearIndividual<Boolean>>(rng,3);
         Crossover<Boolean,LinearIndividual<Boolean>> co =
                 new Crossover<Boolean, LinearIndividual<Boolean>>( new MidBreakCrossover<Boolean>() );
@@ -56,6 +64,36 @@ public class MaxOnes {
                 new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(genNum, sel, co, mut);
         evolver.evolve(pop);
         System.out.println("Pouet");
+    }
+
+    private static void exampleWithPico() {
+        DefaultPicoContainer pico = new DefaultPicoContainer();
+        pico.addComponent(new Random());
+        pico.addComponent("chromosomeSize", 200);
+        pico.addComponent("K",3);
+        pico.addComponent("numberOfGeneration", 50);
+        pico.addComponent("populationSize", 50);
+        pico.addComponent(LinearIndividual.Factory.class);
+        pico.addComponent(fitFunc);
+        pico.as(USE_NAMES).addComponent(RandomBooleanGenerator.class);
+        pico.addComponent(Generator.class);
+        pico.addComponent(BasicPopulation.Factory.class);
+        pico.as(USE_NAMES).addComponent(KTournament.class);
+        pico.addComponent(BooleanFlipper.class);
+        pico.addComponent(PointMutation.class);
+        pico.addComponent(Mutator.class);
+        pico.addComponent(MidBreakCrossover.class);
+        pico.addComponent(Crossover.class);
+        pico.as(USE_NAMES).addComponent(ClassicEvolver.class);
+        pico.start();
+        Generator gen = pico.getComponent(Generator.class);
+        Population pop = pico.getComponent(PopulationFactory.class).create(gen, 50);
+        Evolver e = pico.getComponent(Evolver.class);
+        e.evolve(pop);
+    }
+
+    public static void main(String[] args) {
+       exampleWithPico();
     }
 
 }
