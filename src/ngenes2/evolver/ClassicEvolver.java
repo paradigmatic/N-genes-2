@@ -19,12 +19,14 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
     final Selector<I> selector;
     final Crossover<G,I> crossover;
     final Mutator<G,I> mutator;
+    final GenerationMonitor<G,I> monitor;
 
-    public ClassicEvolver(Properties props, Selector<I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator) {
+    public ClassicEvolver(Properties props, Selector<I> selector, Crossover<G, I> crossover, Mutator<G, I> mutator, GenerationMonitor<G,I> monitor) {
         this.numberOfGeneration = props.getInt("generations");
         this.selector = selector;
         this.crossover = crossover;
         this.mutator = mutator;
+        this.monitor = monitor;
     }
 
     //TODO: write tests
@@ -43,7 +45,7 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
                 count += lst.size();
             }
             population.nextGeneration();
-
+            monitor.newGeneration(t, population);
         }
         logger.info("Evolution finished");
     }
