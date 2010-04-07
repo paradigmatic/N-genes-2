@@ -11,9 +11,9 @@ import static org.mockito.Mockito.*;
 
 public class StatsTest<I> {
 
-    private Individual<?,?> ind1;
-    private Individual<?,?> ind2;
-    private Individual<?,?> ind3;
+    private Individual ind1;
+    private Individual ind2;
+    private Individual ind3;
     private Population pop;
     private Stats stats;
 
@@ -27,8 +27,8 @@ public class StatsTest<I> {
         when( ind3.fitness() ).thenReturn(3.0);
         List<Individual<?,?>> list = new ArrayList<Individual<?, ?>>(3);
         list.add(ind1);
-        list.add(ind2);
         list.add(ind3);
+        list.add(ind2);
         pop = mock(Population.class);
         when( pop.iterator() ).thenReturn(list.iterator());
         stats = new Stats(pop);
