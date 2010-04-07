@@ -6,6 +6,9 @@ import ngenes2.ClassicInstanciator;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
 import ngenes2.evolver.monitor.GenerationMonitor;
+import ngenes2.evolver.stop.FitnessTarget;
+import ngenes2.evolver.stop.MaxGeneration;
+import ngenes2.evolver.stop.StopCondition;
 import ngenes2.fitness.Fitness;
 import ngenes2.individual.Individual;
 import ngenes2.individual.LinearIndividual;
@@ -51,16 +54,18 @@ public class MaxOnes {
             logger.info("Generation {}: best individual fitness = {}", generationNumber, best.fitness());
         }
     };
-
-
+    
     private static void exampleByHand() {
         Random rng = new Random();
         final int indSize = 20;
         final int popSize = 100;
         final int genNum = 50;
-        Properties props = new Properties().put("tournament_size",3).
-                put("chromosome_size", indSize).
-                put("generations", genNum);
+        Properties props = new Properties()
+                .put("tournament_size",3)
+                .put("population_size",20)
+                .put("chromosome_size", indSize)
+                .put("fitness_target", 10e-9)
+                .put("max_generation", genNum);
 
         Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
@@ -80,8 +85,11 @@ public class MaxOnes {
         Mutator<Boolean,LinearIndividual<Boolean>> mut = new Mutator<Boolean, LinearIndividual<Boolean>>(
                     new PointMutation<Boolean>( rng, new BooleanFlipper() )
                 );
+        StopCondition<Boolean,LinearIndividual<Boolean>> stop =
+                new FitnessTarget<Boolean,LinearIndividual<Boolean>>(props)
+                .or( new MaxGeneration<Boolean,LinearIndividual<Boolean>>(props) );
         Evolver<Boolean,LinearIndividual<Boolean>> evolver =
-                new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(props, sel, co, mut, monitor);
+                new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(sel, co, mut, monitor,stop);
         evolver.evolve(pop);
         System.out.println("Pouet");
     }
@@ -92,7 +100,8 @@ public class MaxOnes {
                 .put("tournament_size",3)
                 .put("chromosome_size", 200)
                 .put("population_size", 100)
-                .put("generations", 100);
+                .put("fitness_target", 10e-9)
+                .put("max_generation", 500);
         ClassicInstanciator inst = new ClassicInstanciator()
                 .with(prop)
                 .with(LinearIndividual.Factory.class)
@@ -102,11 +111,13 @@ public class MaxOnes {
                 .with(BooleanFlipper.class)
                 .with(PointMutation.class)
                 .with(MidBreakCrossover.class)
-                .with(monitor);
+                .with(monitor)
+                .with( new FitnessTarget(prop).or( new MaxGeneration(prop) ) );
         Population result = inst.run();
     }
 
     public static void main(String[] args) {
+        //exampleByHand();
         exampleWithClassicInstanciator();
     }
 }

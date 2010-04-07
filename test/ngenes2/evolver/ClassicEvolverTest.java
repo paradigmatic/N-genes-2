@@ -3,6 +3,8 @@ package ngenes2.evolver;
 import ngenes2.evolver.monitor.GenerationMonitor;
 import java.util.ArrayList;
 import java.util.List;
+import ngenes2.evolver.stop.MaxGeneration;
+import ngenes2.evolver.stop.StopCondition;
 import ngenes2.individual.Individual;
 import ngenes2.ops.crossover.Crossover;
 import ngenes2.ops.mutator.Mutator;
@@ -36,7 +38,7 @@ public class ClassicEvolverTest {
     @Test
     public void testEvolve() {
         final Individual ind = mock(Individual.class);
-        final int numGen = 1;
+        final int numGen = 3;
         final int popSize = 100;
         final List<Individual> lst = new ArrayList(2);
         lst.add(ind);
@@ -47,9 +49,10 @@ public class ClassicEvolverTest {
         when(sel.select(anyPopulation())).thenReturn( ind );
         final Mutator mut = mock(Mutator.class);
         when( mut.mutate( anyIndividual() ) ).thenReturn( ind );
-        Properties props = new Properties().put("generations",numGen);
         GenerationMonitor monitor = mock( GenerationMonitor.class );
-        final Evolver flow = new ClassicEvolver(props, sel, co, mut, monitor);
+        Properties props = new Properties().put("max_generation",numGen);
+        StopCondition stop = new MaxGeneration(props);
+        final Evolver flow = new ClassicEvolver( sel, co, mut, monitor,stop);
         final Population pop = mock(Population.class);
         when( pop.size() ).thenReturn( popSize );
         when( pop.get( anyInt() ) ).thenReturn( ind );
