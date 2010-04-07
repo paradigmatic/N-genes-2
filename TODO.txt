@@ -1,0 +1,4 @@
+Testing
+=======
+
+* Contract tests for stop conditions (or() and and() methods).

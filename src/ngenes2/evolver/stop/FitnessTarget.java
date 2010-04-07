@@ -5,11 +5,11 @@ import ngenes2.population.Population;
 import ngenes2.population.Stats;
 import ngenes2.util.Properties;
 
-public class FitnessTarget<G,I extends Individual<G,I>> implements StopCondition<G,I> {
+public class FitnessTarget<G, I extends Individual<G, I>> implements StopCondition<G, I> {
 
     private final double target;
 
-    public FitnessTarget( Properties props) {
+    public FitnessTarget(Properties props) {
         target = props.getDouble("fitness_target");
     }
 
@@ -19,11 +19,10 @@ public class FitnessTarget<G,I extends Individual<G,I>> implements StopCondition
     }
 
     public StopCondition<G, I> or(StopCondition<G, I> that) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new OrCondition<G, I>(this, that);
     }
 
     public StopCondition<G, I> and(StopCondition<G, I> that) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new AndCondition(this, that);
     }
-
 }
