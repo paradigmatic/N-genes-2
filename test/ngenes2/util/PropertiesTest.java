@@ -73,4 +73,37 @@ public class PropertiesTest {
     public void testStringsException() {
         prop.getString("FOO");
     }
+
+    @Test
+    public void parseInt() {
+        final String key = "machin";
+        final int value = 12;
+        Properties props = new Properties().parse(key, String.valueOf(value));
+        assertEquals(value, props.getInt(key));
+    }
+
+    @Test
+    public void parseDouble() {
+        final String key = "machin";
+        final double value = 12.34;
+        Properties props = new Properties().parse(key, String.valueOf(value));
+        assertEquals(value, props.getDouble(key), 1e-18);
+    }
+
+    @Test
+    public void parseBoolean() {
+        final String key = "machin";
+        final boolean value = false;
+        Properties props = new Properties().parse(key, String.valueOf(value));
+        assertEquals(value, props.getBoolean(key));
+    }
+
+    @Test
+    public void parseString() {
+        final String key = "machin";
+        final String value = "truc";
+        Properties props = new Properties().parse(key, value);
+        assertEquals(value, props.getString(key));
+    }
+
 }
