@@ -5,6 +5,7 @@
 build.xml
 build-before-profiler.xml
 build/
+coverage/
 manifest.mf
 nbproject/
 

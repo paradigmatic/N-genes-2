@@ -39,12 +39,12 @@ public class MaxOnes {
 
     private static void exampleByHand() {
         Random rng = new Random();
-        final int indSize = 200;
+        final int indSize = 20;
         final int popSize = 100;
         final int genNum = 50;
         Properties props = new Properties().put("tournament_size",3).
-                put("chromosome_size", 20).
-                put("generations", 50);
+                put("chromosome_size", indSize).
+                put("generations", genNum);
         Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
                 new LinearIndividual.Factory(),

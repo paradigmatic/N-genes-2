@@ -18,7 +18,6 @@ public class ClassicInstanciator {
 
     public ClassicInstanciator() {
         pico = new DefaultPicoContainer();
-        pico.addComponent(new Random());
     }
 
     public <T> ClassicInstanciator with( Class<T> klass ) {
@@ -32,11 +31,12 @@ public class ClassicInstanciator {
     }
 
     private void create() {
+        pico.addComponent(new Random());
         pico.addComponent(Generator.class);
         pico.addComponent(BasicPopulation.Factory.class);
         pico.addComponent(Mutator.class);
         pico.addComponent(Crossover.class);
-        pico.as(Characteristics.USE_NAMES).addComponent(ClassicEvolver.class);
+        pico.addComponent(ClassicEvolver.class);
         pico.start();
 
     }
