@@ -71,6 +71,7 @@ public class MaxOnes {
         Properties prop = new Properties()
                 .put("tournament_size",3)
                 .put("chromosome_size", 20)
+                .put("population_size", 100)
                 .put("generations", 50);
         ClassicInstanciator inst = new ClassicInstanciator()
                 .with(prop)
@@ -81,7 +82,7 @@ public class MaxOnes {
                 .with(BooleanFlipper.class)
                 .with(PointMutation.class)
                 .with(MidBreakCrossover.class);
-        Population result = inst.run(100);
+        Population result = inst.run();
     }
 
     public static void main(String[] args) {

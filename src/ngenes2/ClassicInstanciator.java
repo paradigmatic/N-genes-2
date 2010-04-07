@@ -9,6 +9,7 @@ import ngenes2.ops.mutator.Mutator;
 import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
 import ngenes2.population.PopulationFactory;
+import ngenes2.util.Properties;
 import org.picocontainer.Characteristics;
 import org.picocontainer.DefaultPicoContainer;
 
@@ -41,10 +42,11 @@ public class ClassicInstanciator {
 
     }
 
-    public Population run( int generations ) {
+    public Population run() {
         create();
         Generator gen = pico.getComponent(Generator.class);
-        Population pop = pico.getComponent(PopulationFactory.class).create(gen, generations );
+        int popSize = pico.getComponent(Properties.class).getInt("population_size");
+        Population pop = pico.getComponent(PopulationFactory.class).create(gen, popSize );
         Evolver e = pico.getComponent(Evolver.class);
         e.evolve(pop);
         return pop;
