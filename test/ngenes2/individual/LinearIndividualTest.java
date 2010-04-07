@@ -12,7 +12,7 @@ public class LinearIndividualTest {
 
     private Fitness<Integer> fixedFitness = new Fitness<Integer>() {
 
-        public double compute(Individual<Integer,?> individual) {
+        public double compute(List<Integer> chromosome) {
             return 12.0;
         }
     };

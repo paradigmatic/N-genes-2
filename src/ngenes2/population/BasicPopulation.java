@@ -2,6 +2,7 @@
 package ngenes2.population;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import ngenes2.individual.Individual;
@@ -50,6 +51,9 @@ public class BasicPopulation<G,I extends Individual<G,I>> implements Population<
         }
     }
 
+    public Iterator<I> iterator() {
+        return Collections.unmodifiableList(current).iterator();
+    }
 
 
 }

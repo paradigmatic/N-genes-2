@@ -18,7 +18,7 @@ public class LinearIndividual<G> implements Individual<G,LinearIndividual<G>> {
 
     public double fitness() {
         if( ! fitnessOK ) {
-            fitnessValue = fitFunc.compute(this);
+            fitnessValue = fitFunc.compute(genes);
         }
         return fitnessValue;
     }
