@@ -3,6 +3,7 @@ package ngenes2.xml;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import ngenes2.ClassicInstanciator;
 import ngenes2.population.Population;
 import ngenes2.util.Properties;
 import nu.xom.Attribute;
@@ -15,28 +16,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XMLParser {
-    
-    private final static Logger logger = LoggerFactory.getLogger(XMLParser.class);
 
+    private final static Logger logger = LoggerFactory.getLogger(XMLParser.class);
     final private Properties props;
     final private Population population;
 
-    public XMLParser( Reader reader ) throws ParsingException, IOException {
+    public XMLParser(Reader reader) throws ParsingException, IOException, ClassNotFoundException {
         logger.info("Parsing XML string input");
         Builder parser = new Builder();
         Document doc = parser.build(reader, null);
-        props = parseProperties( doc );
-        population = parseAndRunEvolver( doc, props );
+        props = parseProperties(doc);
+        population = parseAndRunEvolver(doc, props);
     }
 
     private static Properties parseProperties(Document doc) {
         logger.debug("Parsing properties");
         Properties props = new Properties();
         Nodes propNodes = doc.query("//properties/property");
-        for( int i=0; i < propNodes.size(); i++ ) {
+        for (int i = 0; i < propNodes.size(); i++) {
             Element el = (Element) propNodes.get(i);
             Attribute attr = el.getAttribute(0);
-            props.parse( attr.getLocalName(), attr.getValue() );
+            props.parse(attr.getLocalName(), attr.getValue());
         }
         return props;
     }
@@ -45,12 +45,25 @@ public class XMLParser {
         return props;
     }
 
-    static public XMLParser fromString(String content) throws ParsingException, IOException {
-        return new XMLParser(new StringReader(content));
+    public Population result() {
+        return population;
     }
 
-    private Population parseAndRunEvolver(Document doc, Properties props) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private static Population parseAndRunEvolver(Document doc, Properties props) throws ClassNotFoundException {
+        logger.debug("Parsing Evolver");
+        ClassicInstanciator inst = new ClassicInstanciator().with(props);
+        Nodes withs = doc.query("//evolver/with");
+        for (int i = 0; i < withs.size(); i++) {
+            Element el = (Element) withs.get(i);
+            Attribute attr = el.getAttribute("class");
+            Class klass = Class.forName(attr.getValue());
+            inst.with(klass);
+        }
+        return inst.run();
+    }
+
+    public static XMLParser fromString(String content) throws ParsingException, IOException, ClassNotFoundException {
+        return new XMLParser(new StringReader(content));
     }
 
 

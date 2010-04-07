@@ -9,7 +9,6 @@ import ngenes2.evolver.monitor.GenerationMonitor;
 import ngenes2.evolver.stop.FitnessTarget;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.evolver.stop.StopCondition;
-import ngenes2.fitness.Fitness;
 import ngenes2.individual.Individual;
 import ngenes2.individual.LinearIndividual;
 import ngenes2.individual.generator.Generator;
@@ -34,7 +33,7 @@ public class MaxOnes {
 
     private final static Logger logger = LoggerFactory.getLogger(MaxOnes.class);
 
-    private final static Fitness<Boolean> fitFunc = new Fitness<Boolean>() {
+    public static class Fitness implements ngenes2.fitness.Fitness<Boolean> {
         public double compute(List<Boolean> chromosome) {
             double sum = 0.0;
             for( Boolean b: chromosome ) {
@@ -45,7 +44,7 @@ public class MaxOnes {
             }
             return sum / chromosome.size();
         }
-    };
+    }
 
     private final static GenerationMonitor<Boolean,LinearIndividual<Boolean>> monitor
             = new GenerationMonitor<Boolean, LinearIndividual<Boolean>>() {
@@ -70,7 +69,7 @@ public class MaxOnes {
         Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
                 new LinearIndividual.Factory(),
-                fitFunc,
+                new Fitness(),
                 new RandomBooleanGenerator(rng, props)
                 );
         Population<Boolean,LinearIndividual<Boolean>> pop =
@@ -105,7 +104,7 @@ public class MaxOnes {
         ClassicInstanciator inst = new ClassicInstanciator()
                 .with(prop)
                 .with(LinearIndividual.Factory.class)
-                .with(fitFunc)
+                .with(new Fitness())
                 .with(RandomBooleanGenerator.class)
                 .with(KTournament.class)
                 .with(BooleanFlipper.class)
