@@ -1,5 +1,6 @@
 package ngenes2.examples;
 
+import java.util.List;
 import java.util.Random;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
@@ -28,14 +29,14 @@ public class MaxOnes {
     private final static Logger logger = LoggerFactory.getLogger(MaxOnes.class);
 
     private final static Fitness<Boolean> fitFunc = new Fitness<Boolean>() {
-        public double compute(Individual<Boolean, ?> individual) {
+        public double compute(List<Boolean> chromosome) {
             double sum = 0.0;
-            for( Boolean b: individual.chromosome() ) {
+            for( Boolean b: chromosome ) {
                 if( ! b ) {
                     sum += 1.0;
                 }
             }
-            return sum / individual.size();
+            return sum / chromosome.size();
         }
     };
 

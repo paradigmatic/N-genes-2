@@ -47,7 +47,8 @@ public class ClassicEvolverTest {
         final Mutator mut = mock(Mutator.class);
         when( mut.mutate( anyIndividual() ) ).thenReturn( ind );
         Properties props = new Properties().put("generations",numGen);
-        final Evolver flow = new ClassicEvolver(props, sel, co, mut);
+        GenerationMonitor monitor = mock( GenerationMonitor.class );
+        final Evolver flow = new ClassicEvolver(props, sel, co, mut, monitor);
         final Population pop = mock(Population.class);
         when( pop.size() ).thenReturn( popSize );
         when( pop.get( anyInt() ) ).thenReturn( ind );
@@ -55,5 +56,6 @@ public class ClassicEvolverTest {
         verify( co, times( popSize / 2 * numGen )).mate(anyIndividual(), anyIndividual());
         verify( sel, times( popSize*numGen )).select( anyPopulation() );
         verify( mut, times( popSize*numGen )).mutate( anyIndividual() );
+        verify( monitor, times(numGen) ).newGeneration(anyInt(), anyPopulation());
     }
 }
