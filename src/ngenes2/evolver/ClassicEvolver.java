@@ -1,5 +1,6 @@
 package ngenes2.evolver;
 
+import ngenes2.evolver.monitor.GenerationMonitor;
 import java.util.List;
 import ngenes2.individual.Individual;
 import ngenes2.ops.crossover.Crossover;

@@ -5,7 +5,7 @@ import java.util.Random;
 import ngenes2.ClassicInstanciator;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
-import ngenes2.evolver.GenerationMonitor;
+import ngenes2.evolver.monitor.GenerationMonitor;
 import ngenes2.fitness.Fitness;
 import ngenes2.individual.Individual;
 import ngenes2.individual.LinearIndividual;
@@ -90,9 +90,9 @@ public class MaxOnes {
     private static void exampleWithClassicInstanciator() {
         Properties prop = new Properties()
                 .put("tournament_size",3)
-                .put("chromosome_size", 20)
+                .put("chromosome_size", 200)
                 .put("population_size", 100)
-                .put("generations", 50);
+                .put("generations", 100);
         ClassicInstanciator inst = new ClassicInstanciator()
                 .with(prop)
                 .with(LinearIndividual.Factory.class)
@@ -101,7 +101,8 @@ public class MaxOnes {
                 .with(KTournament.class)
                 .with(BooleanFlipper.class)
                 .with(PointMutation.class)
-                .with(MidBreakCrossover.class);
+                .with(MidBreakCrossover.class)
+                .with(monitor);
         Population result = inst.run();
     }
 
