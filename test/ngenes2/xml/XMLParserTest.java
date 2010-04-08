@@ -15,12 +15,24 @@ public class XMLParserTest {
             "<property bar=\"false\" />" +
             "<property baz=\"0.125\" />" +
             "<property funky=\"shit\" />" +
-            "</properties>" +
+            "<property tournament_size=\"3\" />" +
+            "<property population_size=\"20\" />" +
+            "<property chromosome_size=\"30\" />" +
+            "<property fitness_target=\"10e-9\" />" +
+            "</properties>"+
             "<evolver>" +
             "<with class=\"ngenes2.individual.LinearIndividual$Factory\" />" +
+            "<with class=\"ngenes2.individual.generator.bool.RandomBooleanGenerator\" />" +
+            "<with class=\"ngenes2.ops.selector.KTournament\" />" +
+            "<with class=\"ngenes2.ops.mutator.genes.bool.BooleanFlipper\" />" +
+            "<with class=\"ngenes2.ops.mutator.PointMutation\"/>" +
+            "<with class=\"ngenes2.ops.crossover.MidBreakCrossover\" />" +
+            "<with class=\"ngenes2.evolver.monitor.NopMonitor\" />" +
+            "<with class=\"ngenes2.evolver.stop.FitnessTarget\" />" +
             "<with class=\"ngenes2.examples.MaxOnes$Fitness\" />" +
             "</evolver>" +
             "</ngenes2>";
+
 
     @Test
     public void testPropertiesParsing() throws ParsingException, IOException, ClassNotFoundException {
@@ -37,5 +49,7 @@ public class XMLParserTest {
         XMLParser parser = XMLParser.fromString(xml);
         Population pop = parser.result();
         assertTrue( pop != null );
+        assertEquals( 20, pop.size() );
+
     }
 }

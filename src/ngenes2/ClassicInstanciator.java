@@ -10,7 +10,6 @@ import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
 import ngenes2.population.PopulationFactory;
 import ngenes2.util.Properties;
-import org.picocontainer.Characteristics;
 import org.picocontainer.DefaultPicoContainer;
 
 public class ClassicInstanciator {
