@@ -1,5 +1,7 @@
 package ngenes2.xml;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -50,9 +52,9 @@ public class XMLParser {
     }
 
     private static Population parseAndRunEvolver(Document doc, Properties props) throws ClassNotFoundException {
-        logger.debug("Parsing Evolver");
+        logger.debug("Parsing components");
         ClassicInstanciator inst = new ClassicInstanciator().with(props);
-        Nodes withs = doc.query("//evolver/with");
+        Nodes withs = doc.query("//components/with");
         for (int i = 0; i < withs.size(); i++) {
             Element el = (Element) withs.get(i);
             Attribute attr = el.getAttribute("class");
@@ -64,6 +66,10 @@ public class XMLParser {
 
     public static XMLParser fromString(String content) throws ParsingException, IOException, ClassNotFoundException {
         return new XMLParser(new StringReader(content));
+    }
+
+    public static XMLParser fromFile(String filename) throws FileNotFoundException, ParsingException, IOException, ClassNotFoundException {
+        return new XMLParser( new FileReader( filename ) );
     }
 
 

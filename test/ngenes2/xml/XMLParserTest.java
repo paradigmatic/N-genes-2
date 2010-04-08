@@ -20,7 +20,7 @@ public class XMLParserTest {
             "<property chromosome_size=\"30\" />" +
             "<property fitness_target=\"10e-9\" />" +
             "</properties>"+
-            "<evolver>" +
+            "<components>" +
             "<with class=\"ngenes2.individual.LinearIndividual$Factory\" />" +
             "<with class=\"ngenes2.individual.generator.bool.RandomBooleanGenerator\" />" +
             "<with class=\"ngenes2.ops.selector.KTournament\" />" +
@@ -30,7 +30,7 @@ public class XMLParserTest {
             "<with class=\"ngenes2.evolver.monitor.NopMonitor\" />" +
             "<with class=\"ngenes2.evolver.stop.FitnessTarget\" />" +
             "<with class=\"ngenes2.examples.MaxOnes$Fitness\" />" +
-            "</evolver>" +
+            "</components>" +
             "</ngenes2>";
 
 

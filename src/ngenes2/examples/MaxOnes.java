@@ -1,7 +1,10 @@
 package ngenes2.examples;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 import ngenes2.ClassicInstanciator;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
@@ -24,6 +27,8 @@ import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
 import ngenes2.population.Stats;
 import ngenes2.util.Properties;
+import ngenes2.xml.XMLParser;
+import nu.xom.ParsingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,8 +120,19 @@ public class MaxOnes {
         Population result = inst.run();
     }
 
+    private static void exampleFromXML() {
+        String filename = "examples-resources/maxones.xml";
+        try {
+            XMLParser parser = XMLParser.fromFile(filename);
+            Population result = parser.result();
+        } catch (Exception ex) {
+            logger.error("An error occured while parsing", ex);
+        }
+    }
+
     public static void main(String[] args) {
         //exampleByHand();
-        exampleWithClassicInstanciator();
+        //exampleWithClassicInstanciator();
+        exampleFromXML();
     }
 }
