@@ -40,7 +40,8 @@ public class ClassicInstanciator {
         pico.start();
 
     }
-
+    
+    @SuppressWarnings("unchecked")
     public Population run() {
         create();
         Generator gen = pico.getComponent(Generator.class);

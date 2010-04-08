@@ -51,6 +51,7 @@ public class XMLParser {
         return population;
     }
 
+    @SuppressWarnings("unchecked")
     private static Population parseAndRunEvolver(Document doc, Properties props) throws ClassNotFoundException {
         logger.debug("Parsing components");
         ClassicInstanciator inst = new ClassicInstanciator().with(props);

@@ -24,7 +24,7 @@ public class Generator<G,I extends Individual<G,I>> {
     }
 
     public Iterator<I> generate( int number ) {
-        return new FreshIndividuals( this, number );
+        return new FreshIndividuals<G,I>( this, number );
     }
 
     public static class FreshIndividuals<G,I extends Individual<G,I>> implements Iterator<I> {

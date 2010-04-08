@@ -23,6 +23,6 @@ public class FitnessTarget<G, I extends Individual<G, I>> implements StopConditi
     }
 
     public StopCondition<G, I> and(StopCondition<G, I> that) {
-        return new AndCondition(this, that);
+        return new AndCondition<G,I>(this, that);
     }
 }

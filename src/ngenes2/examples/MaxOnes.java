@@ -73,7 +73,7 @@ public class MaxOnes {
 
         Generator<Boolean,LinearIndividual<Boolean>> gen =
                 new Generator<Boolean, LinearIndividual<Boolean>>(
-                new LinearIndividual.Factory(),
+                new LinearIndividual.Factory<Boolean>(),
                 new Fitness(),
                 new RandomBooleanGenerator(rng, props)
                 );
@@ -98,7 +98,7 @@ public class MaxOnes {
         System.out.println("Pouet");
     }
 
-
+    @SuppressWarnings("unchecked")
     private static void exampleWithClassicInstanciator() {
         Properties prop = new Properties()
                 .put("tournament_size",3)
@@ -119,7 +119,8 @@ public class MaxOnes {
                 .with( new FitnessTarget(prop).or( new MaxGeneration(prop) ) );
         Population result = inst.run();
     }
-
+    
+    @SuppressWarnings("unchecked")
     private static void exampleFromXML() {
         String filename = "examples-resources/maxones.xml";
         try {

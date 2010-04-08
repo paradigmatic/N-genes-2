@@ -18,10 +18,10 @@ public class OrCondition<G, I extends Individual<G, I>> implements StopCondition
     }
 
     public StopCondition<G, I> or(StopCondition<G, I> that) {
-        return new OrCondition(this, that);
+        return new OrCondition<G,I>(this, that);
     }
 
     public StopCondition<G, I> and(StopCondition<G, I> that) {
-        return new AndCondition(this, that);
+        return new AndCondition<G,I>(this, that);
     }
 }
