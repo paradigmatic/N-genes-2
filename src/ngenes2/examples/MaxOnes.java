@@ -95,7 +95,6 @@ public class MaxOnes {
         Evolver<Boolean,LinearIndividual<Boolean>> evolver =
                 new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(sel, co, mut, monitor,stop);
         evolver.evolve(pop);
-        System.out.println("Pouet");
     }
 
     @SuppressWarnings("unchecked")
