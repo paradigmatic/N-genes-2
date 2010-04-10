@@ -25,7 +25,6 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
         this.stopCondition = stopCondition;
     }
 
-    //TODO: write tests
     public void evolve(Population<G,I> population) {
         logger.info("Starting evolution");
         int t=0;

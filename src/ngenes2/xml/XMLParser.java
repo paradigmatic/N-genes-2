@@ -31,16 +31,8 @@ public class XMLParser {
         population = parseAndRunEvolver(doc, props);
     }
 
-    private static Properties parseProperties(Document doc) {
-        logger.debug("Parsing properties");
-        Properties props = new Properties();
-        Nodes propNodes = doc.query("//properties/property");
-        for (int i = 0; i < propNodes.size(); i++) {
-            Element el = (Element) propNodes.get(i);
-            Attribute attr = el.getAttribute(0);
-            props.parse(attr.getLocalName(), attr.getValue());
-        }
-        return props;
+   private Properties parseProperties(Document doc) throws ParsingException, IOException {
+        return PropertiesReader.fromString(doc.toXML());
     }
 
     public Properties properties() {
@@ -72,6 +64,8 @@ public class XMLParser {
     public static XMLParser fromFile(String filename) throws FileNotFoundException, ParsingException, IOException, ClassNotFoundException {
         return new XMLParser( new FileReader( filename ) );
     }
+
+
 
 
 }

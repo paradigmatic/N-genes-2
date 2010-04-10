@@ -1,11 +1,13 @@
 Refactor
 ========
 
-* Split XML parser in properties and components parser.
+* Improve component parser.
 * Selectors can return several individuals
 * Population holds (and cache) statistics.
 * Add parallel (multithread) evaluation.
 * Vary the children and parent number for a crossover.
+* Improve properties parsing and storage.
+* Generalize instanciator.
 
 Testing
 =======
