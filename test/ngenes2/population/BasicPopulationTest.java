@@ -23,7 +23,9 @@ public class BasicPopulationTest {
     @Before
     public void setUp() {
         ind1 = mock(Individual.class);
+        when(ind1.fitness()).thenReturn(1.0);
         ind2 = mock(Individual.class);
+        when(ind2.fitness()).thenReturn(0.5);
         initList = new ArrayList<Individual>(2);
         initList.add(ind1);
         initList.add(ind2);
@@ -56,4 +58,15 @@ public class BasicPopulationTest {
         pop.nextGeneration();
         assertEquals(5, pop.size());
     }
+    
+    @Test
+    public void testBest() {
+        assertSame(ind2, pop.stats().best());
+    }
+
+    @Test
+    public void testWorst() {
+        assertSame(ind1, pop.stats().worst());
+    }
+
 }

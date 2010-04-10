@@ -1,26 +1,27 @@
-
 package ngenes2.population;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import ngenes2.individual.Individual;
 import ngenes2.individual.generator.Generator;
 
-public class BasicPopulation<G,I extends Individual<G,I>> implements Population<G,I> {
+public class BasicPopulation<G, I extends Individual<G, I>> implements Population<G, I> {
 
     private List<I> current;
     private List<I> next;
+    private boolean sorted = false;
 
-    public BasicPopulation( Iterable<I> initialIndividuals ) {
-        this( initialIndividuals.iterator() );
+    public BasicPopulation(Iterable<I> initialIndividuals) {
+        this(initialIndividuals.iterator());
     }
 
-    public BasicPopulation( Iterator<I> initialIndividuals ) {
+    public BasicPopulation(Iterator<I> initialIndividuals) {
         current = new ArrayList<I>();
-        while( initialIndividuals.hasNext() ) {
-            current.add( initialIndividuals.next() );
+        while (initialIndividuals.hasNext()) {
+            current.add(initialIndividuals.next());
         }
         next = new ArrayList<I>(current.size());
     }
@@ -34,7 +35,7 @@ public class BasicPopulation<G,I extends Individual<G,I>> implements Population<
     }
 
     public void addToNextGeneration(I newIndividual) {
-        next.add( newIndividual );
+        next.add(newIndividual);
     }
 
     public void nextGeneration() {
@@ -42,12 +43,14 @@ public class BasicPopulation<G,I extends Individual<G,I>> implements Population<
         next = current;
         current = tmp;
         next.clear();
+        sorted = false;
     }
 
-    public static class Factory<G,I extends Individual<G,I>>
-            implements PopulationFactory<G,I,BasicPopulation<G,I>>  {
+    public static class Factory<G, I extends Individual<G, I>>
+            implements PopulationFactory<G, I, BasicPopulation<G, I>> {
+
         public BasicPopulation<G, I> create(Generator<G, I> gen, int popSize) {
-            return new BasicPopulation<G, I>( gen.generate(popSize) );
+            return new BasicPopulation<G, I>(gen.generate(popSize));
         }
     }
 
@@ -55,5 +58,39 @@ public class BasicPopulation<G,I extends Individual<G,I>> implements Population<
         return Collections.unmodifiableList(current).iterator();
     }
 
+    private void sort() {
+        if (!sorted) {
+            Collections.sort(current, new Comparator<I>() {
 
+                public int compare(I ind0, I ind1) {
+                    if (ind0.fitness() == ind1.fitness()) {
+                        return 0;
+                    }
+                    if (ind0.fitness() < ind1.fitness()) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                }
+            });
+        }
+        sorted = true;
+    }
+
+    public Stats<I> stats() {
+        return new BasicPopulationStats();
+    }
+
+    public class BasicPopulationStats implements Stats<I> {
+
+        public I best() {
+            sort();
+            return current.get(0);
+        }
+
+        public I worst() {
+            sort();
+            return current.get(current.size() - 1);
+        }
+    }
 }

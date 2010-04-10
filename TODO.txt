@@ -1,10 +1,14 @@
+Release Quality
+===============
+* Add license
+* Add readme
+* Add documentation
+
 Improvements
 ============
 
 * Improve component parser.
-* Population holds (and cache) statistics.
 * Add parallel (multithread) evaluation.
-* Vary the children and parent number for a crossover.
 * Improve properties parsing and storage.
 * Generalize instanciator.
 * Add properties xml writer.

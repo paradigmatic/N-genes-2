@@ -7,4 +7,5 @@ public interface Population<G,I extends Individual<G,I>> extends Iterable<I> {
     public I get(int i);
     public void addToNextGeneration( I newIndividual );
     public void nextGeneration();
+    public Stats<I> stats();
 }

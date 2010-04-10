@@ -56,7 +56,7 @@ public class MaxOnes {
     private final static GenerationMonitor<Boolean,LinearIndividual<Boolean>> monitor
             = new GenerationMonitor<Boolean, LinearIndividual<Boolean>>() {
         public void newGeneration(int generationNumber, Population<Boolean, LinearIndividual<Boolean>> pop) {
-            LinearIndividual<Boolean> best = new Stats<LinearIndividual<Boolean>>(pop).best();
+            LinearIndividual<Boolean> best = pop.stats().best();
             logger.info("Generation {}: best individual fitness = {}", generationNumber, best.fitness());
         }
     };
@@ -135,8 +135,8 @@ public class MaxOnes {
     }
 
     public static void main(String[] args) {
-        //exampleByHand();
+        exampleByHand();
         //exampleWithClassicInstanciator();
-        exampleFromXML();
+        //exampleFromXML();
     }
 }

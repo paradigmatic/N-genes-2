@@ -14,7 +14,7 @@ public class FitnessTarget<G, I extends Individual<G, I>> implements StopConditi
     }
 
     public boolean shouldStop(int generation, Population<G, I> population) {
-        Stats<I> stats = new Stats<I>(population);
+        Stats<I> stats = population.stats();
         return stats.best().fitness() <= target;
     }
 
