@@ -1,5 +1,5 @@
-Refactor
-========
+Improvements
+============
 
 * Improve component parser.
 * Selectors can return several individuals
@@ -8,6 +8,7 @@ Refactor
 * Vary the children and parent number for a crossover.
 * Improve properties parsing and storage.
 * Generalize instanciator.
+* Add properties xml writer.
 
 Testing
 =======
