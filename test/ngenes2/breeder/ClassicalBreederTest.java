@@ -26,7 +26,7 @@ public class ClassicalBreederTest {
         when( mut.mutate( any(Individual.class)) ).thenReturn( ind );
         final Breeder breeder = new ClassicalBreeder(co, mut);
         final Population pop = mock(Population.class);
-        breeder.breed(pop, ind, ind);
+        breeder.breed(pop, lst);
         verify( co, times( 1 )).mate(any(Individual.class), any(Individual.class));
         verify( mut, times( 2 )).mutate( any(Individual.class) );
         verify( pop, times(2)).addToNextGeneration( any(Individual.class));
@@ -36,7 +36,7 @@ public class ClassicalBreederTest {
     public void testNotEnoughParents() {
         final Individual ind = mock(Individual.class);
         final Breeder breeder = new ClassicalBreeder(null, null);
-        breeder.breed(null, ind);
+        breeder.breed(null, new ArrayList());
     }
 
 }

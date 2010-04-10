@@ -29,11 +29,11 @@ public class ClassicalBreeder<G, I extends Individual<G, I>> implements Breeder<
         return CHILDREN_NUMBER;
     }
 
-    public void breed(Population<G, I> pop, I... parents) {
-        if (parents.length != PARENT_NUMBER) {
-            throw new IllegalArgumentException("Received " + parents.length + " instead of " + PARENT_NUMBER + ".");
+    public void breed(Population<G, I> pop, List<I> parents) {
+        if (parents.size() != PARENT_NUMBER) {
+            throw new IllegalArgumentException("Received " + parents.size() + " instead of " + PARENT_NUMBER + ".");
         }
-        final List<I> beforeMutation = crossover.mate(parents[0], parents[1]);// </editor-fold>
+        final List<I> beforeMutation = crossover.mate(parents.get(0), parents.get(1));// </editor-fold>
         for (I child : beforeMutation) {
             pop.addToNextGeneration(mutator.mutate(child));
         }

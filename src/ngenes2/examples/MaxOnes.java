@@ -94,7 +94,8 @@ public class MaxOnes {
         StopCondition<Boolean,LinearIndividual<Boolean>> stop =
                 new FitnessTarget<Boolean,LinearIndividual<Boolean>>(props)
                 .or( new MaxGeneration<Boolean,LinearIndividual<Boolean>>(props) );
-        Breeder<Boolean,LinearIndividual<Boolean>> breeder = new ClassicalBreeder(co, mut);
+        Breeder<Boolean,LinearIndividual<Boolean>> breeder = 
+                new ClassicalBreeder<Boolean,LinearIndividual<Boolean>>(co, mut);
         Evolver<Boolean,LinearIndividual<Boolean>> evolver =
                 new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(sel, breeder, monitor,stop);
         evolver.evolve(pop);

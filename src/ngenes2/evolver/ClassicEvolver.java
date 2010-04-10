@@ -1,5 +1,8 @@
 package ngenes2.evolver;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import ngenes2.evolver.monitor.GenerationMonitor;
 import ngenes2.evolver.stop.StopCondition;
 import ngenes2.individual.Individual;
@@ -31,10 +34,12 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
         while( ! stopCondition.shouldStop(t, population) ) {
             logger.debug("Generation: {}", t);
             int count = 0;
+            Iterator<I> selected = selector.select(population.size(), population);
             while( count < population.size() ) {
-                final I i1 = selector.select(population);
-                final I i2 = selector.select(population);
-                breeder.breed(population, i1,i2);
+                final List<I> parents = new ArrayList<I>(2);
+                parents.add( selected.next() );
+                parents.add( selected.next() );
+                breeder.breed(population, parents);
                 count += breeder.childrenNumber();
             }
             population.nextGeneration();

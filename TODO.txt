@@ -2,7 +2,6 @@ Improvements
 ============
 
 * Improve component parser.
-* Selectors can return several individuals
 * Population holds (and cache) statistics.
 * Add parallel (multithread) evaluation.
 * Vary the children and parent number for a crossover.
