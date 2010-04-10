@@ -1,10 +1,7 @@
 package ngenes2.examples;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 import ngenes2.ClassicInstanciator;
 import ngenes2.breeder.Breeder;
 import ngenes2.breeder.ClassicalBreeder;
@@ -14,7 +11,6 @@ import ngenes2.evolver.monitor.GenerationMonitor;
 import ngenes2.evolver.stop.FitnessTarget;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.evolver.stop.StopCondition;
-import ngenes2.individual.Individual;
 import ngenes2.individual.LinearIndividual;
 import ngenes2.individual.generator.Generator;
 import ngenes2.individual.generator.bool.RandomBooleanGenerator;
@@ -27,10 +23,8 @@ import ngenes2.ops.selector.KTournament;
 import ngenes2.ops.selector.Selector;
 import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
-import ngenes2.population.Stats;
 import ngenes2.util.Properties;
 import ngenes2.xml.XMLParser;
-import nu.xom.ParsingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
