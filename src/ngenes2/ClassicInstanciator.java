@@ -1,6 +1,7 @@
 package ngenes2;
 
 import java.util.Random;
+import ngenes2.breeder.ClassicalBreeder;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
 import ngenes2.individual.generator.Generator;
@@ -37,6 +38,7 @@ public class ClassicInstanciator {
         pico.addComponent(Mutator.class);
         pico.addComponent(Crossover.class);
         pico.addComponent(ClassicEvolver.class);
+        pico.addComponent(ClassicalBreeder.class);
         pico.start();
 
     }

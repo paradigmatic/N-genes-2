@@ -3,6 +3,7 @@ package ngenes2.evolver;
 import ngenes2.evolver.monitor.GenerationMonitor;
 import java.util.ArrayList;
 import java.util.List;
+import ngenes2.breeder.Breeder;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.evolver.stop.StopCondition;
 import ngenes2.individual.Individual;
@@ -43,23 +44,21 @@ public class ClassicEvolverTest {
         final List<Individual> lst = new ArrayList(2);
         lst.add(ind);
         lst.add(ind);
-        final Crossover co = mock(Crossover.class);
-        when(co.mate(anyIndividual(), anyIndividual())).thenReturn(lst);
         final Selector sel = mock(Selector.class);
         when(sel.select(anyPopulation())).thenReturn( ind );
-        final Mutator mut = mock(Mutator.class);
-        when( mut.mutate( anyIndividual() ) ).thenReturn( ind );
+        Breeder breeder = mock(Breeder.class);
+        when( breeder.childrenNumber() ).thenReturn(2);
         GenerationMonitor monitor = mock( GenerationMonitor.class );
         Properties props = new Properties().put("max_generation",numGen);
         StopCondition stop = new MaxGeneration(props);
-        final Evolver flow = new ClassicEvolver( sel, co, mut, monitor,stop);
+        final Evolver flow = new ClassicEvolver( sel, breeder, monitor,stop);
         final Population pop = mock(Population.class);
         when( pop.size() ).thenReturn( popSize );
         when( pop.get( anyInt() ) ).thenReturn( ind );
         flow.evolve(pop);
-        verify( co, times( popSize / 2 * numGen )).mate(anyIndividual(), anyIndividual());
         verify( sel, times( popSize*numGen )).select( anyPopulation() );
-        verify( mut, times( popSize*numGen )).mutate( anyIndividual() );
+        verify( breeder, times(numGen*popSize/2) ).breed(anyPopulation(), anyIndividual(), anyIndividual());
         verify( monitor, times(numGen) ).newGeneration(anyInt(), anyPopulation());
+
     }
 }

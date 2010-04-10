@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import ngenes2.ClassicInstanciator;
+import ngenes2.breeder.Breeder;
+import ngenes2.breeder.ClassicalBreeder;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
 import ngenes2.evolver.monitor.GenerationMonitor;
@@ -92,8 +94,9 @@ public class MaxOnes {
         StopCondition<Boolean,LinearIndividual<Boolean>> stop =
                 new FitnessTarget<Boolean,LinearIndividual<Boolean>>(props)
                 .or( new MaxGeneration<Boolean,LinearIndividual<Boolean>>(props) );
+        Breeder<Boolean,LinearIndividual<Boolean>> breeder = new ClassicalBreeder(co, mut);
         Evolver<Boolean,LinearIndividual<Boolean>> evolver =
-                new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(sel, co, mut, monitor,stop);
+                new ClassicEvolver<Boolean, LinearIndividual<Boolean>>(sel, breeder, monitor,stop);
         evolver.evolve(pop);
     }
 
@@ -131,8 +134,8 @@ public class MaxOnes {
     }
 
     public static void main(String[] args) {
-        //exampleByHand();
+        exampleByHand();
         //exampleWithClassicInstanciator();
-        exampleFromXML();
+        //exampleFromXML();
     }
 }
