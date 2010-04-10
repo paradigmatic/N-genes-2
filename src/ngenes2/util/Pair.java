@@ -25,6 +25,7 @@ public class Pair<A,B> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -41,6 +42,7 @@ public class Pair<A,B> {
         return 31*(7 + first.hashCode() ) + second.hashCode();
     }
 
+    @SuppressWarnings("unchecked")
     public List<?> toList() {
         List lst = new ArrayList();
         lst.add(first);
