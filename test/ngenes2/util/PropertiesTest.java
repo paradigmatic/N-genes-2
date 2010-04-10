@@ -82,6 +82,14 @@ public class PropertiesTest {
         assertEquals(value, props.getInt(key));
     }
 
+    @Test(expected=NumberFormatException.class)
+    public void parseBogusInt() {
+        final String key = "machin";
+        final double value = 12.145;
+        Properties props = new Properties().put(key, value);
+        props.getInt(key);
+    }
+
     @Test
     public void parseDouble() {
         final String key = "machin";
@@ -90,11 +98,27 @@ public class PropertiesTest {
         assertEquals(value, props.getDouble(key), 1e-18);
     }
 
+    @Test(expected=NumberFormatException.class)
+    public void parseBogusDouble() {
+        final String key = "machin";
+        final String value = "1b-3";
+        Properties props = new Properties().put(key, value);
+        props.getInt(key);
+    }
+
     @Test
     public void parseBoolean() {
         final String key = "machin";
         final boolean value = false;
         Properties props = new Properties().put(key, String.valueOf(value));
+        assertEquals(value, props.getBoolean(key));
+    }
+
+    @Test(expected=NumberFormatException.class)
+    public void parseBogusBoolean() {
+        final String key = "machin";
+        final String value = "faaaalse";
+        Properties props = new Properties().put(key, value);
         assertEquals(value, props.getBoolean(key));
     }
 

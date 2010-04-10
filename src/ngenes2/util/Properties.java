@@ -88,9 +88,14 @@ public class Properties {
     return props.get(key).toString();
   }
 
+  public boolean contains(String key) {
+    return props.containsKey(key);
+  }
+
   private void check(String key) throws NoSuchElementException {
     if (!props.containsKey(key)) {
       throw new NoSuchElementException("Property '" + key + "' was not declared");
     }
   }
+
 }
