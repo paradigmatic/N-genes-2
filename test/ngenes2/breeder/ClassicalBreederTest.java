@@ -1,4 +1,3 @@
-
 package ngenes2.breeder;
 
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-
 public class ClassicalBreederTest {
 
     @Test
@@ -23,20 +21,21 @@ public class ClassicalBreederTest {
         final Crossover co = mock(Crossover.class);
         when(co.mate(any(Individual.class), any(Individual.class))).thenReturn(lst);
         final Mutator mut = mock(Mutator.class);
-        when( mut.mutate( any(Individual.class)) ).thenReturn( ind );
+        when(mut.mutate(any(Individual.class))).thenReturn(ind);
         final Breeder breeder = new ClassicalBreeder(co, mut);
         final Population pop = mock(Population.class);
         breeder.breed(pop, lst);
-        verify( co, times( 1 )).mate(any(Individual.class), any(Individual.class));
-        verify( mut, times( 2 )).mutate( any(Individual.class) );
-        verify( pop, times(2)).addToNextGeneration( any(Individual.class));
+        verify(co, times(1)).mate(any(Individual.class), any(Individual.class));
+        verify(mut, times(2)).mutate(any(Individual.class));
+        verify(pop, times(2)).addToNextGeneration(any(Individual.class));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNotEnoughParents() {
         final Individual ind = mock(Individual.class);
-        final Breeder breeder = new ClassicalBreeder(null, null);
+        final Crossover co = mock(Crossover.class);
+        when( co.childrenNumber() ).thenReturn(2);
+        final Breeder breeder = new ClassicalBreeder(co,null);
         breeder.breed(null, new ArrayList());
     }
-
 }

@@ -22,4 +22,8 @@ public class Crossover<G, I extends Individual<G, I>> {
         }
         return offsprings;
     }
+
+    public int childrenNumber() {
+        return chromosomeCrossover.childrenNumber();
+    }
 }

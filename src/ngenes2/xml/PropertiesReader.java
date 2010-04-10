@@ -23,14 +23,13 @@ public class PropertiesReader {
     final private Properties props;
 
     public PropertiesReader(Reader reader) throws ParsingException, IOException {
-        logger.info("Parsing XML string input");
+        logger.info("Parsing XML Properties");
         Builder parser = new Builder();
         Document doc = parser.build(reader, null);
         props = parseProperties(doc);
     }
 
     private static Properties parseProperties(Document doc) {
-        logger.debug("Parsing properties");
         Properties props = new Properties();
         Nodes propNodes = doc.query("//properties/property");
         for (int i = 0; i < propNodes.size(); i++) {

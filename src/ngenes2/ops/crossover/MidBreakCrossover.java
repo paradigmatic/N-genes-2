@@ -24,4 +24,10 @@ public class MidBreakCrossover<G> implements ChromosomeCrossover<G> {
         return result;
     }
 
+    public int childrenNumber() {
+        return 2;
+    }
+
+
+
 }

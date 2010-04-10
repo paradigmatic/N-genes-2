@@ -12,13 +12,14 @@ import ngenes2.population.Population;
 public class ClassicalBreeder<G, I extends Individual<G, I>> implements Breeder<G, I> {
 
     private final static int PARENT_NUMBER = 2;
-    private final static int CHILDREN_NUMBER = 2;
+    private final int childrenNumber;;
     private final Crossover<G, I> crossover;
     private final Mutator<G, I> mutator;
 
     public ClassicalBreeder(Crossover<G, I> crossover, Mutator<G, I> mutator) {
         this.crossover = crossover;
         this.mutator = mutator;
+        this.childrenNumber = crossover.childrenNumber();
     }
 
     public int parentNumber() {
@@ -26,7 +27,7 @@ public class ClassicalBreeder<G, I extends Individual<G, I>> implements Breeder<
     }
 
     public int childrenNumber() {
-        return CHILDREN_NUMBER;
+        return childrenNumber;
     }
 
     public void breed(Population<G, I> pop, List<I> parents) {

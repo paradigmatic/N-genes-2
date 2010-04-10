@@ -24,7 +24,7 @@ public class XMLParser {
     final private Population population;
 
     public XMLParser(Reader reader) throws ParsingException, IOException, ClassNotFoundException {
-        logger.info("Parsing XML string input");
+        logger.info("Parsing XML");
         Builder parser = new Builder();
         Document doc = parser.build(reader, null);
         props = parseProperties(doc);
