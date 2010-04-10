@@ -78,7 +78,7 @@ public class PropertiesTest {
     public void parseInt() {
         final String key = "machin";
         final int value = 12;
-        Properties props = new Properties().parse(key, String.valueOf(value));
+        Properties props = new Properties().put(key, String.valueOf(value));
         assertEquals(value, props.getInt(key));
     }
 
@@ -86,7 +86,7 @@ public class PropertiesTest {
     public void parseDouble() {
         final String key = "machin";
         final double value = 12.34;
-        Properties props = new Properties().parse(key, String.valueOf(value));
+        Properties props = new Properties().put(key, String.valueOf(value));
         assertEquals(value, props.getDouble(key), 1e-18);
     }
 
@@ -94,7 +94,7 @@ public class PropertiesTest {
     public void parseBoolean() {
         final String key = "machin";
         final boolean value = false;
-        Properties props = new Properties().parse(key, String.valueOf(value));
+        Properties props = new Properties().put(key, String.valueOf(value));
         assertEquals(value, props.getBoolean(key));
     }
 
@@ -102,7 +102,7 @@ public class PropertiesTest {
     public void parseString() {
         final String key = "machin";
         final String value = "truc";
-        Properties props = new Properties().parse(key, value);
+        Properties props = new Properties().put(key, value);
         assertEquals(value, props.getString(key));
     }
 

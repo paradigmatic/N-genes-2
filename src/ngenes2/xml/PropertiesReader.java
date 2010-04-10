@@ -35,7 +35,7 @@ public class PropertiesReader {
         for (int i = 0; i < propNodes.size(); i++) {
             Element el = (Element) propNodes.get(i);
             Attribute attr = el.getAttribute(0);
-            props.parse(attr.getLocalName(), attr.getValue());
+            props.put(attr.getLocalName(), attr.getValue());
         }
         return props;
     }
