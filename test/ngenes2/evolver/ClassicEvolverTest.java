@@ -70,6 +70,5 @@ public class ClassicEvolverTest {
         verify( sel, times( numGen )).select( anyInt(), anyPopulation() );
         verify( breeder, times(numGen*popSize/2) ).breed(anyPopulation(), anyList());
         verify( monitor, times(numGen) ).newGeneration(anyInt(), anyPopulation());
-
     }
 }

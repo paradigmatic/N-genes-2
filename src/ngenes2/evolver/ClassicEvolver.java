@@ -34,11 +34,13 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
         while( ! stopCondition.shouldStop(t, population) ) {
             logger.debug("Generation: {}", t);
             int count = 0;
-            Iterator<I> selected = selector.select(population.size(), population);
+            final int toDraw = population.size()/breeder.childrenNumber() * breeder.parentNumber();
+            Iterator<I> selected = selector.select(toDraw, population);
             while( count < population.size() ) {
-                final List<I> parents = new ArrayList<I>(2);
-                parents.add( selected.next() );
-                parents.add( selected.next() );
+                final List<I> parents = new ArrayList<I>(breeder.parentNumber());
+                for( int i=0; i < breeder.parentNumber(); i++ ) {
+                    parents.add( selected.next() );
+                }
                 breeder.breed(population, parents);
                 count += breeder.childrenNumber();
             }
