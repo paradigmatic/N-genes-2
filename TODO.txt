@@ -13,6 +13,8 @@ Improvements
 * Generalize instanciator.
 * Add properties xml writer.
 * Make unmodifiable view of a population.
+* Change property names to replace dash by underscores (check random
+integer stuff).
 
 Testing
 =======
