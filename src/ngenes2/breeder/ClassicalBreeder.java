@@ -6,8 +6,10 @@ import ngenes2.ops.mutator.Mutator;
 import ngenes2.population.Population;
 
 /**
- * Takes two parents, crossover them and mutates the children.
- * @author falcone
+ * The ClassicalBreeder takes two parent, apply a crossover operator and mutate
+ * resulting children before adding them to the population.
+ * @param <G> Gene type
+ * @param <I> Individual type
  */
 public class ClassicalBreeder<G, I extends Individual<G, I>> implements Breeder<G, I> {
 
@@ -16,13 +18,18 @@ public class ClassicalBreeder<G, I extends Individual<G, I>> implements Breeder<
     private final Crossover<G, I> crossover;
     private final Mutator<G, I> mutator;
 
+    /**
+     * Create a Classical breeder using a crossover and a mutator.
+     * @param crossover The crossover operator
+     * @param mutator The mutator operator
+     */
     public ClassicalBreeder(Crossover<G, I> crossover, Mutator<G, I> mutator) {
         this.crossover = crossover;
         this.mutator = mutator;
         this.childrenNumber = crossover.childrenNumber();
     }
 
-    public int parentNumber() {
+    public int parentsNumber() {
         return PARENT_NUMBER;
     }
 

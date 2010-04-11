@@ -46,6 +46,13 @@ public class LinearIndividual<G> implements Individual<G,LinearIndividual<G>> {
         return fitFunc;
     }
 
+  @Override
+  public String toString() {
+    return "Individual(fitness="+fitness()+", chromosom="+chromosome().toString()+")";
+  }
+
+
+
     public static class Factory<G> implements IndividualFactory<G,LinearIndividual<G>> {
         public LinearIndividual<G> makeIndividual(Fitness<G> fitFunc, List<G> chromosome) {
             return new LinearIndividual<G>(fitFunc,chromosome);

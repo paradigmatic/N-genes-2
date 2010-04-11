@@ -47,7 +47,7 @@ public class MaxOnes {
         }
     }
 
-    private final static GenerationMonitor<Boolean,LinearIndividual<Boolean>> monitor
+    public final static GenerationMonitor<Boolean,LinearIndividual<Boolean>> monitor
             = new GenerationMonitor<Boolean, LinearIndividual<Boolean>>() {
         public void newGeneration(int generationNumber, Population<Boolean, LinearIndividual<Boolean>> pop) {
             LinearIndividual<Boolean> best = pop.stats().best();
