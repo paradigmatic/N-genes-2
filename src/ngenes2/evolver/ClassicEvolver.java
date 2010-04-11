@@ -12,6 +12,17 @@ import ngenes2.population.Population;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * The classic evolver implement the usual GA evolution. It uses several other components
+ * to prametrize the evolution (see the constructor). Individual of the population are first
+ * selected with a {@link Selector}, then passed to a {@link Breeder} which creates children
+ * and add them to the population next generation. Before each generation a {@link StopCondition} is
+ * called to check for termination. After each generation a {@link GenerationMonitor} is called to
+ * allow additional action to take place such as logging or customized population manipulation.
+ * @param <G> Gene type
+ * @param <I> Individual type
+ */
 public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I>{
 
     private final Logger logger = LoggerFactory.getLogger(ClassicEvolver.class);
@@ -21,6 +32,13 @@ public class ClassicEvolver<G,I extends Individual<G,I>> implements Evolver <G,I
     private final GenerationMonitor<G,I> monitor;
     private final StopCondition<G,I> stopCondition;
 
+    /**
+     * Create a ClassicEvolver instance using the provided components.
+     * @param selector A selector responsible for drawing parents individual to mate.
+     * @param breeder A breeder which creates children from parents.
+     * @param monitor A generation monitor which is called at the end of every iteration.
+     * @param stopCondition A stop condition which is called before iteration.
+     */
     public ClassicEvolver(Selector<I> selector, Breeder<G, I> breeder, GenerationMonitor<G, I> monitor, StopCondition<G, I> stopCondition) {
         this.selector = selector;
         this.breeder = breeder;

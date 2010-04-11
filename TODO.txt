@@ -12,6 +12,7 @@ Improvements
 * Improve properties parsing and storage.
 * Generalize instanciator.
 * Add properties xml writer.
+* Make unmodifiable view of a population.
 
 Testing
 =======

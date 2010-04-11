@@ -3,12 +3,25 @@ package ngenes2.evolver.stop;
 import ngenes2.individual.Individual;
 import ngenes2.population.Population;
 
+/**
+ * This condition represent the and logical operator between two conditions.
+ * Normaly, it should not be created directly by the user but it is built
+ * using {@link StopCondition} and() method.
+ * @author falcone
+ * @param <G> Gene type
+ * @param <I> Individual type
+ */
 public class AndCondition<G,I extends Individual<G,I>> implements StopCondition<G,I> {
 
     private final StopCondition<G,I> left;
     private final StopCondition<G,I> right;
 
-    protected AndCondition(StopCondition<G, I> left, StopCondition<G, I> right) {
+    /**
+     * Sole constructor
+     * @param left left operand
+     * @param right right operand
+     */
+    public AndCondition(StopCondition<G, I> left, StopCondition<G, I> right) {
         this.left = left;
         this.right = right;
     }
