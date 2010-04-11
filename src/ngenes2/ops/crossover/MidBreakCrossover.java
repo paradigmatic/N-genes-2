@@ -1,10 +1,14 @@
-
 package ngenes2.ops.crossover;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Crosses over to chromosome by splitting each parents in half, and by joining
+ * the first half of first individual to the second half of the second indivdiual
+ * and vice versa.
+ * @param <G> Gene type
+ */
 public class MidBreakCrossover<G> implements ChromosomeCrossover<G> {
 
     public List<List<G>> mate(List<G> chrome1, List<G> chrome2) {
