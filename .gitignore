@@ -2,11 +2,7 @@
 .#*
 *#
 
-build.xml
-build-before-profiler.xml
 build/
-coverage/
 dist/
-manifest.mf
-nbproject/
-
+ivy/
+lib/
