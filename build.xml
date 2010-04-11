@@ -1,4 +1,4 @@
-<project name="ngenes2" default="" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="ngenes2" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
     Builds ngenes2 project.
   </description>
@@ -13,6 +13,14 @@
   <property name="ivy.jar.dir" value="ivy" />
   <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
 
+  <path id="classpath">
+    <pathelement path="${build.dir}" />
+    <fileset dir="lib">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+
   <target name="download-ivy" unless="skip.download">
     <mkdir dir="${ivy.jar.dir}"/>
     <!-- download Ivy from web site so that it can be used even
@@ -22,7 +30,7 @@
     dest="${ivy.jar.file}" usetimestamp="true"/>
   </target>
 
-  <target name="install-ivy" depends="download-ivy" description="--> install ivy">
+  <target name="install-ivy" depends="download-ivy" description="install ivy">
     <!-- try to load ivy here from local ivy dir, in case the user has
     	 not already dropped it into ant's lib dir (note that the
     	 latter copy will always take precedence).  We will not fail
@@ -35,9 +43,45 @@
     	     uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
   </target>  
 
-   <target name="install-dependencies" depends="install-ivy" description="--> retrieve dependencies with ivy">
+  <target name="install-dependencies" depends="install-ivy" description="retrieve dependencies with ivy">
         <ivy:retrieve />
-   </target>
+  </target>
+  
+  <target name="compile" description="compile project">
+    <mkdir dir="${build.dir}" />
+    <javac
+        srcdir="${src.dir}"
+        destdir="${build.dir}"
+        classpathref="classpath"/>
+  </target>
+
+  <target name="jar" depends="compile" description="create jar">
+    <mkdir dir="${dist.dir}" />
+    <jar
+        destfile="${dist.dir}/${ant.project.name}.jar">
+        <fileset dir="${build.dir}"/>
+    </jar>
+  </target>
+
+  <target name="clean" description="Cleans project generated files">
+    <delete dir="${dist.dir}" />
+    <delete dir="${build.dir}" />
+  </target>
+
+  <target name="clean-dependencies" description="Cleans the
+  dependencies downloaded by ivy">
+    <delete dir="lib" />
+  </target>
+
+  <target name="setup" description="Setup the project"
+  depends="install-dependencies" />
+
+  <target name="mrproper" description="Resets the project by cleaning
+  everything" depends="clean,clean-dependencies" />
+
+  <target name="build" description="Sets the project up and build
+  everything" depends="setup,jar" />
+
 
 
 </project>
