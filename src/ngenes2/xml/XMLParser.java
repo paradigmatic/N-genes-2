@@ -5,7 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import ngenes2.ClassicInstanciator;
+import ngenes2.builder.BasicDIBuilder;
+import ngenes2.evolver.Evolver;
 import ngenes2.population.Population;
 import ngenes2.util.Properties;
 import nu.xom.Attribute;
@@ -65,7 +66,7 @@ public class XMLParser {
   @SuppressWarnings("unchecked")
   private static Population parseAndRunEvolver(Document doc, Properties props) throws ClassNotFoundException {
     logger.debug("Parsing components");
-    ClassicInstanciator inst = new ClassicInstanciator().with(props);
+    BasicDIBuilder inst = new BasicDIBuilder().with(props);
     Nodes withs = doc.query("//components/with");
     for (int i = 0; i < withs.size(); i++) {
       Element el = (Element) withs.get(i);
@@ -73,7 +74,11 @@ public class XMLParser {
       Class klass = Class.forName(attr.getValue());
       inst.with(klass);
     }
-    return inst.run();
+     Evolver evolver = inst.evolver();
+    Population pop = inst.population();
+        evolver.evolve(pop);
+
+    return pop;
   }
 
   public static XMLParser fromString(String content) throws ParsingException, IOException, ClassNotFoundException {

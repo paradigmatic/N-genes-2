@@ -1,7 +1,8 @@
 package ngenes2.examples;
 
 import java.util.List;
-import ngenes2.ClassicInstanciator;
+import ngenes2.builder.BasicDIBuilder;
+import ngenes2.evolver.Evolver;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.individual.LinearIndividual;
 import ngenes2.individual.generator.integer.RandomIntegerGenerator;
@@ -61,7 +62,7 @@ public class KnapSack {
             .put("tournament_size",5)
             .put("max_generation", maxGen);
 
-    ClassicInstanciator inst = new ClassicInstanciator()
+    BasicDIBuilder inst = new BasicDIBuilder()
             .with(props)
             .with(LinearIndividual.Factory.class)
             .with(new Fitness(values, weights, maxWeight))
@@ -72,8 +73,10 @@ public class KnapSack {
             .with(MidBreakCrossover.class)
             .with(PointMutation.class)
             .with(MaxOnes.monitor);
-    Population result = inst.run();
-    System.out.println(result.stats().best());
+        Evolver evolver = inst.evolver();
+        Population pop = inst.population();
+        evolver.evolve(pop);
+        System.out.println( pop.stats().best() );
 
   }
 }

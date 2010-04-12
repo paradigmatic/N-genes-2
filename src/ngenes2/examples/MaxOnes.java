@@ -2,9 +2,10 @@ package ngenes2.examples;
 
 import java.util.List;
 import java.util.Random;
-import ngenes2.ClassicInstanciator;
+import ngenes2.builder.BasicDIBuilder;
 import ngenes2.breeder.Breeder;
 import ngenes2.breeder.ClassicalBreeder;
+import ngenes2.builder.Builder;
 import ngenes2.evolver.ClassicEvolver;
 import ngenes2.evolver.Evolver;
 import ngenes2.evolver.monitor.GenerationMonitor;
@@ -96,14 +97,14 @@ public class MaxOnes {
     }
 
     @SuppressWarnings("unchecked")
-    private static void exampleWithClassicInstanciator() {
+    private static void exampleWithDIBuilder() {
         Properties prop = new Properties()
                 .put("tournament_size",3)
                 .put("chromosome_size", 200)
                 .put("population_size", 100)
                 .put("fitness_target", 10e-9)
                 .put("max_generation", 500);
-        ClassicInstanciator inst = new ClassicInstanciator()
+        Builder inst = new BasicDIBuilder()
                 .with(prop)
                 .with(LinearIndividual.Factory.class)
                 .with(new Fitness())
@@ -114,7 +115,10 @@ public class MaxOnes {
                 .with(MidBreakCrossover.class)
                 .with(monitor)
                 .with( new FitnessTarget(prop).or( new MaxGeneration(prop) ) );
-        Population result = inst.run();
+        Evolver evolver = inst.evolver();
+        Population pop = inst.population();
+        evolver.evolve(pop);
+        System.out.println( pop.stats().best() );
     }
     
     @SuppressWarnings("unchecked")
@@ -130,7 +134,7 @@ public class MaxOnes {
 
     public static void main(String[] args) {
         //exampleByHand();
-        //exampleWithClassicInstanciator();
-        exampleFromXML();
+        exampleWithDIBuilder();
+        //exampleFromXML();
     }
 }
