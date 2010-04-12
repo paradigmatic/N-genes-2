@@ -24,12 +24,14 @@
     <pathelement path="${build.dir}" />
     <fileset dir="lib">
       <include name="*.jar" />
+      <exclude name="*-sources.jar" />
     </fileset>
   </path>
 
   <path id="cobertura.classpath">
     <fileset dir="lib">
       <include name="*.jar" />
+      <exclude name="*-sources.jar" />
     </fileset>
   </path>
 

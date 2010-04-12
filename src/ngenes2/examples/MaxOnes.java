@@ -129,8 +129,8 @@ public class MaxOnes {
     }
 
     public static void main(String[] args) {
-        exampleByHand();
+        //exampleByHand();
         //exampleWithClassicInstanciator();
-        //exampleFromXML();
+        exampleFromXML();
     }
 }
