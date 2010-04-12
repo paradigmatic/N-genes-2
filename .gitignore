@@ -2,9 +2,11 @@
 .#*
 *#
 
+cobertura.ser
 build/
 dist/
 doc/
+instrumented/
 reports/
 ivy/
 lib/

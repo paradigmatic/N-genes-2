@@ -7,9 +7,12 @@
   <property name="src.dir" location="src"/>
   <property name="test.dir" location="test" />
   <property name="build.dir" location="build"/>
+  <property name="instrumented.dir" location="instrumented" />
   <property name="dist.dir" location="dist"/>
   <property name="doc.dir" location="doc" />
   <property name="reports.dir" location="reports" />
+  <property name="junit.rep.dir" location="${reports.dir}/junit" />
+  <property name="cobertura.rep.dir" location="${reports.dir}/cobertura" />
  
   <!-- ivy properties -->
   <property name="ivy.install.version" value="2.1.0" />
@@ -22,6 +25,15 @@
       <include name="*.jar" />
     </fileset>
   </path>
+
+  <path id="cobertura.classpath">
+    <fileset dir="lib">
+      <include name="cobertura.jar" />
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
 
   <target name="download-ivy" unless="skip.download">
     <mkdir dir="${ivy.jar.dir}"/>
@@ -54,7 +66,8 @@
     <javac
         srcdir="${src.dir}"
         destdir="${build.dir}"
-        classpathref="classpath"/>
+        classpathref="classpath"
+       debug="true" />
   </target>
 
   <target name="compile-tests" description="compile tests" depends="compile">
@@ -62,7 +75,8 @@
     <javac
         srcdir="${test.dir}"
         destdir="${build.dir}"
-        classpathref="classpath"/>
+        classpathref="classpath"
+       debug="true" />
   </target>
 
   <target name="jar" depends="compile" description="create jar">
@@ -93,6 +107,8 @@
     <delete dir="${dist.dir}" />
     <delete dir="${build.dir}" />
     <delete dir="${doc.dir}" />
+    <delete dir="${reports.dir}" />
+    <delete dir="${instrumented.dir}" />
   </target>
 
   <target name="clean-dependencies" description="Cleans the
@@ -106,19 +122,51 @@
   <target name="setup" description="Setup the project"
   depends="install-dependencies" />
 
-  <target name="test" description="Test the project"
-	  depends="compile-tests">
-    <mkdir dir="${reports.dir}" />
-    <junit printsummary="yes" fork="yes">
-      <formatter type="plain"/>
+  <target name="junit" description="Test the project"
+	  depends="compile-tests,coverage">
+    <mkdir dir="${junit.rep.dir}" />
+    <junit printsummary="yes" fork="yes" forkmode="once" >
+      <formatter type="xml"/>
+      <sysproperty key="net.sourceforge.cobertura.datafile"
+		   file="cobertura.ser" />
+      <classpath location="${instrumented.dir}"/>
       <classpath refid="classpath" />
-      <batchtest todir="${reports.dir}">
+      <batchtest todir="${junit.rep.dir}">
 	<fileset dir="${test.dir}">
 	  <include name="**/*Test*.java"/>
 	</fileset>
       </batchtest>
     </junit>
   </target>
+
+  <target name="junit-report" description="Test the project"
+	  depends="compile-tests,coverage">
+    <junitreport todir="${junit.rep.dir}">
+      <fileset dir="${junit.rep.dir}">
+	<include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="${junit.rep.dir}"/>
+    </junitreport>
+  </target>
+
+
+  <target name="coverage" description="Sets up cobertura coverage analysis"
+	  depends="compile">
+    <mkdir dir="${instrumented.dir}" />
+    <cobertura-instrument todir="${instrumented.dir}">
+      <fileset dir="${build.dir}">
+        <include name="**/*.class"/>
+      </fileset>
+    </cobertura-instrument>
+  </target>
+
+
+  <target name="coverage-report" depends="junit">
+    <cobertura-report srcdir="${src.dir}" destdir="${cobertura.rep.dir}"/>
+  </target>
+
+  <target name="test" depends="coverage-report,junit-report" description="Test the project" />
+
 
   <target name="build" description="Sets the project up and build
   everything" depends="setup,jar,doc" />

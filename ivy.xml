@@ -1,6 +1,9 @@
 <ivy-module version="2.0">
+
     <info organisation="ngenes2" module="ngenes2"/>
+
     <dependencies>
+
       <dependency org="org.slf4j" name="slf4j-api" rev="1.5.11"/>
       <dependency org="ch.qos.logback" name="logback-classic"
       rev="0.9.20"/>
@@ -9,7 +12,16 @@
       <dependency org="org.picocontainer" name="picocontainer"
       rev="2.10.2"/>
       <dependency org="xom" name="xom" rev="1.1"/>
+
+      <!-- TESTING -->
       <dependency org="org.mockito" name="mockito-core" rev="1.8.4"/>
       <dependency org="junit" name="junit" rev="4.8.1"/>      
+      <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.4"/>
+
+      <!--
+      <dependency org="log4j" name="log4j" rev="1.2.14"/>
+      <dependency org="asm" name="asm" rev="3.2"/>-->
+
     </dependencies>
+
 </ivy-module>
