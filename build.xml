@@ -4,6 +4,7 @@
   </description>
 
   <!-- general project properties -->
+  <property name="lib.dir" location="lib" />
   <property name="src.dir" location="src"/>
   <property name="test.dir" location="test" />
   <property name="base.build.dir" location="build" />
@@ -22,14 +23,14 @@
 
   <path id="classpath">
     <pathelement path="${build.dir}" />
-    <fileset dir="lib">
+    <fileset dir="${lib.dir}">
       <include name="*.jar" />
       <exclude name="*-sources.jar" />
     </fileset>
   </path>
 
   <path id="cobertura.classpath">
-    <fileset dir="lib">
+    <fileset dir="${lib.dir}">
       <include name="*.jar" />
       <exclude name="*-sources.jar" />
     </fileset>
@@ -60,7 +61,8 @@
   </target>  
 
   <target name="install-dependencies" depends="install-ivy" description="retrieve dependencies with ivy">
-        <ivy:retrieve />
+    <mkdir dir="${lib.dir}" />
+    <ivy:retrieve />
   </target>
   
   <target name="compile" description="compile project">
@@ -115,7 +117,7 @@
 
   <target name="clean-dependencies" description="Cleans the
   dependencies downloaded by ivy">
-    <delete dir="lib" />
+    <delete dir="${lib.dir}" />
   </target>
 
   <target name="mrproper" description="Resets the project by cleaning
