@@ -5,9 +5,11 @@
 
   <!-- general project properties -->
   <property name="src.dir" location="src"/>
+  <property name="test.dir" location="test" />
   <property name="build.dir" location="build"/>
   <property name="dist.dir" location="dist"/>
   <property name="doc.dir" location="doc" />
+  <property name="reports.dir" location="reports" />
  
   <!-- ivy properties -->
   <property name="ivy.install.version" value="2.1.0" />
@@ -55,6 +57,14 @@
         classpathref="classpath"/>
   </target>
 
+  <target name="compile-tests" description="compile tests" depends="compile">
+    <mkdir dir="${build.dir}" />
+    <javac
+        srcdir="${test.dir}"
+        destdir="${build.dir}"
+        classpathref="classpath"/>
+  </target>
+
   <target name="jar" depends="compile" description="create jar">
     <mkdir dir="${dist.dir}" />
     <jar
@@ -90,11 +100,25 @@
     <delete dir="lib" />
   </target>
 
+  <target name="mrproper" description="Resets the project by cleaning
+  everything" depends="clean,clean-dependencies" />
+  
   <target name="setup" description="Setup the project"
   depends="install-dependencies" />
 
-  <target name="mrproper" description="Resets the project by cleaning
-  everything" depends="clean,clean-dependencies" />
+  <target name="test" description="Test the project"
+	  depends="compile-tests">
+    <mkdir dir="${reports.dir}" />
+    <junit printsummary="yes" fork="yes">
+      <formatter type="plain"/>
+      <classpath refid="classpath" />
+      <batchtest todir="${reports.dir}">
+	<fileset dir="${test.dir}">
+	  <include name="**/*Test*.java"/>
+	</fileset>
+      </batchtest>
+    </junit>
+  </target>
 
   <target name="build" description="Sets the project up and build
   everything" depends="setup,jar,doc" />
