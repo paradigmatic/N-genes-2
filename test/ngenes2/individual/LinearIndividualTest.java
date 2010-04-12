@@ -36,8 +36,18 @@ public class LinearIndividualTest {
     }
 
     @Test
+    public void testFitnessCache() {
+        assertEquals(individual.fitness(), individual.fitness(), 1e-18);
+    }
+
+    @Test
     public void testGet() {
         assertEquals(chromosome.get(2), individual.get(2));
+    }
+
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testGetOutOfBond() {
+        individual.get(individual.size());
     }
 
     @Test
@@ -48,6 +58,16 @@ public class LinearIndividualTest {
     @Test(expected=UnsupportedOperationException.class)
     public void chromosomeImmutability() {
         individual.chromosome().set(0,12);
+    }
+
+    @Test
+    public void testFitnessFunction() {
+      assertSame(fixedFitness, individual.fitnessFunction());
+    }
+
+    @Test
+    public void testToStringContainsFitness() {
+      assertTrue( individual.toString().contains( String.valueOf(individual.fitness())));
     }
 
     @Test

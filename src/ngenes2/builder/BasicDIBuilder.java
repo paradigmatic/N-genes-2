@@ -84,7 +84,8 @@ public class BasicDIBuilder implements Builder {
 
 
   }
-
+  
+  @SuppressWarnings("unchecked")
   public Evolver<?, ?> evolver() {
     create();
     return pico.getComponent(Evolver.class);

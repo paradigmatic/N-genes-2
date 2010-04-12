@@ -9,6 +9,7 @@
   <property name="test.dir" location="test" />
   <property name="base.build.dir" location="build" />
   <property name="build.dir" location="${base.build.dir}/classes"/>
+  <property name="test.build.dir" location="${base.build.dir}/test"/>
   <property name="instrumented.dir" location="${base.build.dir}/instrumented" />
   <property name="dist.dir" location="dist"/>
   <property name="doc.dir" location="doc" />
@@ -30,6 +31,15 @@
   </path>
 
   <path id="cobertura.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar" />
+      <exclude name="*-sources.jar" />
+    </fileset>
+  </path>
+
+  <path id="test.classpath">
+    <pathelement path="${build.dir}" />
+    <pathelement path="${build.test}" />
     <fileset dir="${lib.dir}">
       <include name="*.jar" />
       <exclude name="*-sources.jar" />
@@ -75,10 +85,10 @@
   </target>
 
   <target name="compile-tests" description="compile tests" depends="compile">
-    <mkdir dir="${build.dir}" />
+    <mkdir dir="${test.build.dir}" />
     <javac
         srcdir="${test.dir}"
-        destdir="${build.dir}"
+        destdir="${test.build.dir}"
         classpathref="classpath"
        debug="true" />
   </target>
@@ -99,20 +109,17 @@
        use="false"
        windowtitle="N-genes 2"
        classpathref="classpath">
-      
-      <fileset dir="src">
-	<!--<include name="**/*.java"/>-->
-	<!--<include name="**/package.html"/>-->
-      </fileset>
+      <fileset dir="src" />
     </javadoc>
   </target>
 
   <target name="clean" description="Cleans project generated files">
     <delete dir="${dist.dir}" />
-    <delete dir="${build.dir}" />
+    <delete dir="${base.build.dir}" />
     <delete dir="${doc.dir}" />
     <delete dir="${reports.dir}" />
     <delete dir="${instrumented.dir}" />
+    <delete file="cobertura.ser" />
   </target>
 
   <target name="clean-dependencies" description="Cleans the
@@ -134,7 +141,7 @@
       <sysproperty key="net.sourceforge.cobertura.datafile"
 		   file="cobertura.ser" />
       <classpath location="${instrumented.dir}"/>
-      <classpath refid="classpath" />
+      <classpath refid="test.classpath" />
       <batchtest todir="${junit.rep.dir}">
 	<fileset dir="${test.dir}">
 	  <include name="**/*Test*.java"/>
@@ -158,7 +165,7 @@
 	  depends="compile">
     <mkdir dir="${instrumented.dir}" />
     <cobertura-instrument todir="${instrumented.dir}">
-      <fileset dir="${build.dir}">
+      <fileset dir="${base.build.dir}">
         <include name="**/*.class"/>
       </fileset>
     </cobertura-instrument>

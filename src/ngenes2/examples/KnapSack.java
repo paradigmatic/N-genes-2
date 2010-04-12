@@ -48,7 +48,7 @@ public class KnapSack {
     }
   }
 
-  @SuppressWarnings("rawtypes")
+  @SuppressWarnings("unchecked")
   public static void main(String[] args) {
     final int indSize = 4;
     final int popSize = 100;
@@ -62,7 +62,7 @@ public class KnapSack {
             .put("tournament_size",5)
             .put("max_generation", maxGen);
 
-    BasicDIBuilder inst = new BasicDIBuilder()
+    BasicDIBuilder builder = new BasicDIBuilder()
             .with(props)
             .with(LinearIndividual.Factory.class)
             .with(new Fitness(values, weights, maxWeight))
@@ -73,8 +73,8 @@ public class KnapSack {
             .with(MidBreakCrossover.class)
             .with(PointMutation.class)
             .with(MaxOnes.monitor);
-        Evolver evolver = inst.evolver();
-        Population pop = inst.population();
+        Evolver evolver = builder.evolver();
+        Population pop = builder.population();
         evolver.evolve(pop);
         System.out.println( pop.stats().best() );
 

@@ -104,7 +104,7 @@ public class MaxOnes {
                 .put("population_size", 100)
                 .put("fitness_target", 10e-9)
                 .put("max_generation", 500);
-        Builder inst = new BasicDIBuilder()
+        Builder builder = new BasicDIBuilder()
                 .with(prop)
                 .with(LinearIndividual.Factory.class)
                 .with(new Fitness())
@@ -115,8 +115,8 @@ public class MaxOnes {
                 .with(MidBreakCrossover.class)
                 .with(monitor)
                 .with( new FitnessTarget(prop).or( new MaxGeneration(prop) ) );
-        Evolver evolver = inst.evolver();
-        Population pop = inst.population();
+        Evolver evolver = builder.evolver();
+        Population pop = builder.population();
         evolver.evolve(pop);
         System.out.println( pop.stats().best() );
     }

@@ -5,23 +5,16 @@ import ngenes2.evolver.monitor.NopMonitor;
 import ngenes2.evolver.stop.FitnessTarget;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.examples.MaxOnes;
-import ngenes2.fitness.Fitness;
 import ngenes2.individual.LinearIndividual;
-import ngenes2.individual.generator.ChromosomeGenerator;
 import ngenes2.individual.generator.bool.RandomBooleanGenerator;
-import ngenes2.ops.crossover.ChromosomeCrossover;
 import ngenes2.ops.crossover.MidBreakCrossover;
-import ngenes2.ops.mutator.ChromosomeMutator;
 import ngenes2.ops.mutator.PointMutation;
 import ngenes2.ops.mutator.genes.bool.BooleanFlipper;
 import ngenes2.ops.selector.KTournament;
-import ngenes2.ops.selector.Selector;
 import ngenes2.population.Population;
 import ngenes2.util.Properties;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class BasicDIBuilderTest {
 
