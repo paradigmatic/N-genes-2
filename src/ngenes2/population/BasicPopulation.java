@@ -8,16 +8,30 @@ import java.util.List;
 import ngenes2.individual.Individual;
 import ngenes2.individual.generator.Generator;
 
+/**
+ * Basic implementation of {@link Population} interface. Stats are cached
+ * to allow fast computations. This class is not thread safe.
+ * @param <G> Gene type
+ * @param <I> Individual type
+ */
 public class BasicPopulation<G, I extends Individual<G, I>> implements Population<G, I> {
 
     private List<I> current;
     private List<I> next;
     private boolean sorted = false;
 
+    /**
+     * Builds a population using an {@link Iterable} instance such as a collection.
+     * @param initialIndividuals Initial generation
+     */
     public BasicPopulation(Iterable<I> initialIndividuals) {
         this(initialIndividuals.iterator());
     }
 
+    /**
+     * Builds a population using an {@link Iterator} of individuals.
+     * @param initialIndividuals Initial generation
+     */
     public BasicPopulation(Iterator<I> initialIndividuals) {
         current = new ArrayList<I>();
         while (initialIndividuals.hasNext()) {
@@ -46,6 +60,11 @@ public class BasicPopulation<G, I extends Individual<G, I>> implements Populatio
         sorted = false;
     }
 
+    /**
+     * BasicPopulation factory
+     * @param <G> Gene type
+     * @param <I> Population type
+     */
     public static class Factory<G, I extends Individual<G, I>>
             implements PopulationFactory<G, I, BasicPopulation<G, I>> {
 
@@ -81,6 +100,9 @@ public class BasicPopulation<G, I extends Individual<G, I>> implements Populatio
         return new BasicPopulationStats();
     }
 
+    /**
+     * Stats for a basic population.
+     */
     public class BasicPopulationStats implements Stats<I> {
 
         public I best() {
