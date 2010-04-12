@@ -6,8 +6,9 @@
   <!-- general project properties -->
   <property name="src.dir" location="src"/>
   <property name="test.dir" location="test" />
-  <property name="build.dir" location="build"/>
-  <property name="instrumented.dir" location="instrumented" />
+  <property name="base.build.dir" location="build" />
+  <property name="build.dir" location="${base.build.dir}/classes"/>
+  <property name="instrumented.dir" location="${base.build.dir}/instrumented" />
   <property name="dist.dir" location="dist"/>
   <property name="doc.dir" location="doc" />
   <property name="reports.dir" location="reports" />
@@ -28,8 +29,7 @@
 
   <path id="cobertura.classpath">
     <fileset dir="lib">
-      <include name="cobertura.jar" />
-      <include name="**/*.jar" />
+      <include name="*.jar" />
     </fileset>
   </path>
 
