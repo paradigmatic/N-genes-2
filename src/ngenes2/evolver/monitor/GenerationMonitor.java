@@ -5,7 +5,7 @@ import ngenes2.population.Population;
 
 
 /**
- * The generation monitor is ususally called by an {@link Evolver} at the end of
+ * The generation monitor is ususally called by an {@link ngenes2.evolver.Evolver} at the end of
  * each iteration. It is usually used for logging, check pointing or performing
  * additional tasks on the population.
  * @param <G> Gene type

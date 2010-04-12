@@ -6,7 +6,7 @@ import ngenes2.population.Population;
 
 /**
  * A Breeder is responsible for producing children individuals from parents
- * individuals. It is usually called by an {@link Evolver} instance several to
+ * individuals. It is usually called by an {@link ngenes2.evolver.Evolver} instance several to
  * build the population next generation. It usually calls crossover and mutation
  * operators.
  * @param <G> Gene type

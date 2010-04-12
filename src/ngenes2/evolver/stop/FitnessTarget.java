@@ -16,7 +16,7 @@ public class FitnessTarget<G, I extends Individual<G, I>> implements StopConditi
     private final double target;
 
     /**
-     * Sole constructor
+     * Sole constructor.
      * @param props a properties instance containing the double property <b>fitness_target</b>.
      */
     public FitnessTarget(Properties props) {
