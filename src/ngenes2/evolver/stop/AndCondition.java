@@ -17,7 +17,7 @@ public class AndCondition<G,I extends Individual<G,I>> implements StopCondition<
     private final StopCondition<G,I> right;
 
     /**
-     * Sole constructor
+     * Sole constructor.
      * @param left left operand
      * @param right right operand
      */

@@ -9,7 +9,7 @@ import ngenes2.util.Properties;
 /**
  * Generate random chromosomes of integers. The integer are drawn at random
  * using a continuous probability distribution. By default, it draws number
- * between 0 and @{link Integer.MAX_VALUE}. However both boundaries can be
+ * between 0 and {@link Integer.MAX_VALUE}. However both boundaries can be
  * cofigured using the optional integer properties <b>gene-min</b> and
  * <b>gene-max</b>.
  */
@@ -24,7 +24,7 @@ public class RandomIntegerGenerator implements ChromosomeGenerator<Integer> {
   /**
    * Sole constructor.
    * @param rng A random number generator.
-   * @param prop A properties holding which could hold the optional integer
+   * @param prop A properties instance which could hold the optional integer
    * properties <b>gene-min</b> and
    * <b>gene-max</b>.
    */
