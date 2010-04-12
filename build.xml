@@ -7,6 +7,7 @@
   <property name="src.dir" location="src"/>
   <property name="build.dir" location="build"/>
   <property name="dist.dir" location="dist"/>
+  <property name="doc.dir" location="doc" />
  
   <!-- ivy properties -->
   <property name="ivy.install.version" value="2.1.0" />
@@ -19,7 +20,6 @@
       <include name="*.jar" />
     </fileset>
   </path>
-
 
   <target name="download-ivy" unless="skip.download">
     <mkdir dir="${ivy.jar.dir}"/>
@@ -63,9 +63,26 @@
     </jar>
   </target>
 
+  <target name="doc" description="generate the documentation">
+    <javadoc
+       destdir="${doc.dir}"
+       author="false"
+       version="false"
+       use="false"
+       windowtitle="N-genes 2"
+       classpathref="classpath">
+      
+      <fileset dir="src">
+	<!--<include name="**/*.java"/>-->
+	<!--<include name="**/package.html"/>-->
+      </fileset>
+    </javadoc>
+  </target>
+
   <target name="clean" description="Cleans project generated files">
     <delete dir="${dist.dir}" />
     <delete dir="${build.dir}" />
+    <delete dir="${doc.dir}" />
   </target>
 
   <target name="clean-dependencies" description="Cleans the
@@ -80,8 +97,6 @@
   everything" depends="clean,clean-dependencies" />
 
   <target name="build" description="Sets the project up and build
-  everything" depends="setup,jar" />
-
-
+  everything" depends="setup,jar,doc" />
 
 </project>

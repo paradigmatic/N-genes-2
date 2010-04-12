@@ -4,5 +4,6 @@
 
 build/
 dist/
+doc/
 ivy/
 lib/
