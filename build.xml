@@ -144,7 +144,7 @@
   </target>
 
   <target name="junit-report" description="Test the project"
-	  depends="compile-tests,coverage">
+	  depends="junit">
     <junitreport todir="${junit.rep.dir}">
       <fileset dir="${junit.rep.dir}">
 	<include name="TEST-*.xml"/>
