@@ -163,8 +163,10 @@
 
   <target name="coverage" description="Sets up cobertura coverage analysis"
 	  depends="compile">
+    <delete file="cobertura.ser" />
     <mkdir dir="${instrumented.dir}" />
     <cobertura-instrument todir="${instrumented.dir}">
+      <excludeClasses regex=".*\.Test.*" />
       <fileset dir="${base.build.dir}">
         <include name="**/*.class"/>
       </fileset>

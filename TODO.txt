@@ -10,7 +10,6 @@ Improvements
 * Improve component parser.
 * Add parallel (multithread) evaluation.
 * Improve properties parsing and storage.
-* Generalize instanciator.
 * Add properties xml writer.
 * Make unmodifiable view of a population.
 * Change property names to replace dash by underscores (check random
@@ -19,4 +18,4 @@ integer stuff).
 Testing
 =======
 
-* Contract tests for stop conditions (or() and and() methods).
+* Improve coverage
