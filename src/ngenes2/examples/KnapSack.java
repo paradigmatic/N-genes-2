@@ -98,7 +98,7 @@ public class KnapSack {
     final double[] weights = new double[] {2.0, 1.0, 10.0, 14.0 };
     Properties props = new Properties().put("chromosome_size", indSize)
             .put("population_size", popSize)
-            .put("gene-max", 50)
+            .put("max_gene_value", 50)
             .put("tournament_size",5)
             .put("max_generation", maxGen);
     BasicDIBuilder builder = new BasicDIBuilder()

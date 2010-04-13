@@ -32,8 +32,8 @@ public class RandomIntegerGeneratorTest {
     when( rng.nextInt(max-min) ).thenReturn((min+max)/2);
     Properties props = mock(Properties.class);
     when( props.getInt("chromosome_size")).thenReturn(size);
-    when( props.getInt("gene-min")).thenReturn(min);
-    when( props.getInt("gene-max")).thenReturn(max);
+    when( props.getInt("min_gene_value")).thenReturn(min);
+    when( props.getInt("max_gene_value")).thenReturn(max);
     when( props.contains(anyString())).thenReturn(Boolean.TRUE);
     RandomIntegerGenerator gen = new RandomIntegerGenerator(rng, props);
     List<Integer> lst = gen.generate();

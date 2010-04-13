@@ -30,8 +30,8 @@ import ngenes2.util.Properties;
  * Generate random chromosomes of integers. The integer are drawn at random
  * using a continuous probability distribution. By default, it draws number
  * between 0 and {@link Integer}.MAX_VALUE. However both boundaries can be
- * cofigured using the optional integer properties <b>gene-min</b> and
- * <b>gene-max</b>.
+ * cofigured using the optional integer properties <b>min_gene_value</b> and
+ * <b>max_gene_value</b>.
  */
 public class RandomIntegerGenerator implements ChromosomeGenerator<Integer> {
 
@@ -45,14 +45,14 @@ public class RandomIntegerGenerator implements ChromosomeGenerator<Integer> {
    * Sole constructor.
    * @param rng A random number generator.
    * @param prop A properties instance which could hold the optional integer
-   * properties <b>gene-min</b> and
-   * <b>gene-max</b>.
+   * properties <b>min_gene_value</b> and
+   * <b>max_gene_value</b>.
    */
   public RandomIntegerGenerator(Random rng, Properties prop) {
     this.rng = rng;
     size = prop.getInt("chromosome_size");
-    min = findBoundary(prop, "gene-min", 0);
-    max = findBoundary(prop, "gene-max", Integer.MAX_VALUE);
+    min = findBoundary(prop, "min_gene_value", 0);
+    max = findBoundary(prop, "max_gene_value", Integer.MAX_VALUE);
     if (max < min) {
       throw new IllegalArgumentException("Lower boundary for gene (" + min +
               ") is greater than higher boundary(" + max + ")");

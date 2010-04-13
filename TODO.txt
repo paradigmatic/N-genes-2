@@ -1,21 +1,17 @@
 Release Quality
 ===============
-* Add license
 * Add readme
-* Add documentation
+* Changelog
 
 Improvements
 ============
 
-* Improve component parser.
 * Add parallel (multithread) evaluation.
 * Improve properties parsing and storage.
 * Add properties xml writer.
 * Make unmodifiable view of a population.
-* Change property names to replace dash by underscores (check random
-integer stuff).
+
 
 Testing
 =======
-
 * Improve coverage

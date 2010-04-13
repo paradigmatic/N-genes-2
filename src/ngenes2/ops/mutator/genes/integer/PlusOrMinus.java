@@ -32,7 +32,7 @@ import ngenes2.util.Properties;
  * decremented and it is is equal to the lower boundary, it will be incremented.
  * By default, the boundaries are 0 and {@link Integer}.MAX_VALUE. However
  * both boundaries can be cofigured using the optional integer properties
- * <b>gene-min</b> and <b>gene-max</b>.
+ * <b>min_gene_value</b> and <b>max_gene_value</b>.
  */
 public class PlusOrMinus implements GeneMutator<Integer> {
 
@@ -44,12 +44,12 @@ public class PlusOrMinus implements GeneMutator<Integer> {
    * Sole constructor.
    * @param rng A random number generator
    * @param props A properties instance which could hold the optional integer
-   * properties <b>gene-min</b> and <b>gene-max</b>.
+   * properties  <b>min_gene_value</b> and <b>max_gene_value</b>.
    */
   public PlusOrMinus(Random rng, Properties props) {
     this.rng = rng;
-    min = findBoundary(props, "gene-min", 0);
-    max = findBoundary(props, "gene-max", Integer.MAX_VALUE);
+    min = findBoundary(props, "min_gene_value", 0);
+    max = findBoundary(props, "max_gene_value", Integer.MAX_VALUE);
   }
 
   public Integer mutate(Integer before) {
