@@ -1,0 +1,6 @@
+== N-genes 2.0 == (2010-04-13)
+
+  * Rewrite of n-genes 0.9. Only the core was rewrote by scratch,
+    the other features will be rewritten and included in the next
+    releases.
+
