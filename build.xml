@@ -46,7 +46,6 @@
     </fileset>
   </path>
 
-  <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
 
   <target name="download-ivy" unless="skip.download">
     <mkdir dir="${ivy.jar.dir}"/>
@@ -163,6 +162,7 @@
 
   <target name="coverage" description="Sets up cobertura coverage analysis"
 	  depends="compile">
+    <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
     <delete file="cobertura.ser" />
     <mkdir dir="${instrumented.dir}" />
     <cobertura-instrument todir="${instrumented.dir}">

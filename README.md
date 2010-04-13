@@ -41,34 +41,34 @@ GA. The dependencies for the current release are:
 Install
 -------
 
-To install, build and use n-genes 2, you need:
+To install, build and use n-genes 2, you will need:
 
 * *Java JDK*: The project was tested with SUN JDK 1.6 but any version since 1.5 should work.
 * *Apache Ant*: At least version 1.6
 
-First get a reopsitory copy, either by cloning the git repository:
+First get a repository copy, either by cloning the git repository:
 
-$ git clone git://github.com/paradigmatic/N-genes-2.git
+    $ git clone git://github.com/paradigmatic/N-genes-2.git
 
 or by [dowloading](http://github.com/paradigmatic/N-genes-2/downloads) a snapshot.
 
-Then go inside the repository and type:
+Then go inside the repository folder and simply type:
 
-$ ant
+    $ ant
 
 This will first download all the needed dependencies in the project
 directory using [Apache Ivy](http://ant.apache.org/ivy/) and then
 build n-genes 2 and documentation. The first time you launch the
-process, it can take several minutes depending of dowload speed.
+process, the downloads can take several minute to complete.
 
 Once everything is built, you can try to launch the test suite by
 typing:
 
-$ ant test
+    $ ant test
 
 Results will be formatted in html and can be accessed by pointing your
-web browser at 'reports/junit/index.html' and
-'reports/junit/index.hmtl'.
+web browser at `reports/junit/index.html` and
+`reports/junit/index.hmtl`.
 
 
 Usage
