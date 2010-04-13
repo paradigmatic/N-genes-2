@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PropertiesReader {
 
-  private final static Logger logger = LoggerFactory.getLogger(XMLParser.class);
+  private final static Logger logger = LoggerFactory.getLogger(PropertiesReader.class);
   final private Properties props;
 
   /**

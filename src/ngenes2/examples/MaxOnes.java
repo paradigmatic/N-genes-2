@@ -45,7 +45,6 @@ import ngenes2.ops.selector.Selector;
 import ngenes2.population.BasicPopulation;
 import ngenes2.population.Population;
 import ngenes2.util.Properties;
-import ngenes2.xml.XMLParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,20 +140,9 @@ public class MaxOnes {
         System.out.println( pop.stats().best() );
     }
     
-    @SuppressWarnings("unchecked")
-    private static void exampleFromXML() {
-        String filename = "examples-resources/maxones.xml";
-        try {
-            XMLParser parser = XMLParser.fromFile(filename);
-            Population result = parser.result();
-        } catch (Exception ex) {
-            logger.error("An error occured while parsing", ex);
-        }
-    }
 
     public static void main(String[] args) {
         //exampleByHand();
         exampleWithDIBuilder();
-        //exampleFromXML();
     }
 }
