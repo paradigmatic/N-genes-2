@@ -48,18 +48,24 @@ import ngenes2.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
+/**
+ * MaxOnes is a classical GA toy problem, considered as a good introductory
+ * problem. The goal is to "optimized" random boolean individuals until
+ * all genes have a true value.
+ */
 public class MaxOnes {
 
     private final static Logger logger = LoggerFactory.getLogger(MaxOnes.class);
 
+    /**
+     * MaxOnes Fitness. Simply count the number of False genes and divide the
+     * count by the chromosome size.
+     */
     public static class Fitness implements ngenes2.fitness.Fitness<Boolean> {
         public double compute(List<Boolean> chromosome) {
             double sum = 0.0;
             for( Boolean b: chromosome ) {
                 if( ! b ) {
-
                     sum += 1.0;
                 }
             }
@@ -67,6 +73,9 @@ public class MaxOnes {
         }
     }
 
+    /**
+     * This monitor logs the best individual of each generation.
+     */
     public final static GenerationMonitor<Boolean,LinearIndividual<Boolean>> monitor
             = new GenerationMonitor<Boolean, LinearIndividual<Boolean>>() {
         public void newGeneration(int generationNumber, Population<Boolean, LinearIndividual<Boolean>> pop) {
@@ -74,7 +83,10 @@ public class MaxOnes {
             logger.info("Generation {}: best individual fitness = {}", generationNumber, best.fitness());
         }
     };
-    
+
+    /**
+     * Example of maxones setting with handmade wiring of components.
+     */
     private static void exampleByHand() {
         Random rng = new Random();
         final int indSize = 20;
@@ -115,6 +127,9 @@ public class MaxOnes {
         evolver.evolve(pop);
     }
 
+    /**
+     * Example of maxones setting using automatic wiring.
+     */
     @SuppressWarnings("unchecked")
     private static void exampleWithDIBuilder() {
         Properties prop = new Properties()

@@ -23,6 +23,7 @@ package ngenes2.examples;
 import java.util.List;
 import ngenes2.builder.BasicDIBuilder;
 import ngenes2.evolver.Evolver;
+import ngenes2.evolver.monitor.NopMonitor;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.individual.LinearIndividual;
 import ngenes2.individual.generator.integer.RandomIntegerGenerator;
@@ -33,14 +34,33 @@ import ngenes2.ops.selector.KTournament;
 import ngenes2.population.Population;
 import ngenes2.util.Properties;
 
+/**
+ * Example implementation of a GA solving a small KnapSack instance. The
+ * GA uses individuals with integers genes representing the amount of
+ * each object kind in the bag.
+ * @see <a href="http://en.wikipedia.org/wiki/Knapsack_problem">http://en.wikipedia.org/wiki/Knapsack_problem</a>
+ */
 public class KnapSack {
 
+  /**
+   * Knap Sack problem fitness. It must be supplied with two arrays of doubles:
+   * (1) an array with the values of objects; (2) an array with the weight of objects.
+   * Of course both arrays should have the same size.
+   */
   public static class Fitness implements ngenes2.fitness.Fitness<Integer> {
 
     private final double[] values;
     private final double[] weights;
     private final double maximumWeight;
 
+    /**
+     * Sole constructor.
+     * @param values Object values.
+     * @param weights Object weights.
+     * @param maximumWeight Weight capacity of the bag.
+     * @throws IllegalArgumentException when values and weight arrays have
+     * different size.
+     */
     public Fitness(double[] values, double[] weights, double maximumWeight) {
       if (values.length != weights.length) {
         throw new IllegalArgumentException("Values and weights length must match");
@@ -81,7 +101,6 @@ public class KnapSack {
             .put("gene-max", 50)
             .put("tournament_size",5)
             .put("max_generation", maxGen);
-
     BasicDIBuilder builder = new BasicDIBuilder()
             .with(props)
             .with(LinearIndividual.Factory.class)
@@ -92,7 +111,7 @@ public class KnapSack {
             .with(MaxGeneration.class)
             .with(MidBreakCrossover.class)
             .with(PointMutation.class)
-            .with(MaxOnes.monitor);
+            .with(NopMonitor.class);
         Evolver evolver = builder.evolver();
         Population pop = builder.population();
         evolver.evolve(pop);
