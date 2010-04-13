@@ -32,7 +32,7 @@ GA. The dependencies for the current release are:
 * [slf4j](http://www.slf4j.org/): Logging facade api
 * [Logback](http://logback.qos.ch/): Logger implementation
 * [PicoContainer](http://www.picocontainer.org/): Dependency injection
-* [XOM(http://www.xom.nu/): XML parsing
+* [XOM](http://www.xom.nu/): XML parsing
 * [JUnit4](http://www.junit.org/): Unit testing
 * [Mockito](http://mockito.org/): Mock objects for testing
 * [Cobertura](http://cobertura.sourceforge.net/): Test coverage
@@ -48,9 +48,9 @@ To install, build and use n-genes 2, you need:
 
 First get a reopsitory copy, either by cloning the git repository:
 
-//TODO: url
+$ git clone git://github.com/paradigmatic/N-genes-2.git
 
-or by dowloading an snapshot //TODO: where
+or by [dowloading](http://github.com/paradigmatic/N-genes-2/downloads) a snapshot.
 
 Then go inside the repository and type:
 
