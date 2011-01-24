@@ -144,4 +144,18 @@ public class PropertiesTest {
         assertFalse(p2.contains("B"));
     }
 
+    @Test
+    public void putAllFromJProperties() {
+        Properties p1 = new Properties();
+        p1.put("A","a").put("B","b").put("C","c");
+        java.util.Properties p2 = new java.util.Properties();
+        p2.put("C", "c2");
+        p2.put("D", "d");
+        Properties p3  = p1.putAll(p2);
+        assertTrue( p3 == p1 );
+        assertEquals("c2", p1.getString("C") );
+        assertEquals("d", p1.getString("D") );
+        assertEquals("c2", p2.get("C"));
+        assertFalse(p2.contains("B"));
+    }
 }
