@@ -1,7 +1,9 @@
 *~
 .#*
 *#
+*.iml
 
+.idea
 cobertura.ser
 build/
 dist/
