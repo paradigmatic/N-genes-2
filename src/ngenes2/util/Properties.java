@@ -21,6 +21,7 @@
 package ngenes2.util;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -164,6 +165,19 @@ public class Properties {
    */
   public boolean contains(String key) {
     return props.containsKey(key);
+  }
+
+    /**
+     * Adds all the keys and value from another property instance into the current one.
+     * Existing properties with the same name with be overwritten,
+     * @param that The "source" property instance. Will be copied but not modified
+     * @return This property object with new properties added.
+     */
+  public Properties putAll( Properties that ) {
+      for( String k: that.props.keySet() ) {
+          this.props.put( k, that.props.get(k) );
+      }
+      return this;
   }
 
   private void check(String key) throws NoSuchElementException {

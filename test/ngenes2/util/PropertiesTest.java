@@ -130,4 +130,18 @@ public class PropertiesTest {
         assertEquals(value, props.getString(key));
     }
 
+    @Test
+    public void putAllFromProperties() {
+        Properties p1 = new Properties();
+        p1.put("A","a").put("B","b").put("C","c");
+        Properties p2 = new Properties();
+        p2.put("C", "c2").put("D", "d");
+        Properties p3  = p1.putAll(p2);
+        assertTrue( p3 == p1 );
+        assertEquals("c2", p1.getString("C") );
+        assertEquals("d", p1.getString("D") );
+        assertEquals("c2", p2.getString("C"));
+        assertFalse(p2.contains("B"));
+    }
+
 }
