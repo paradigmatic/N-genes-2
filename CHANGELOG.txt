@@ -1,4 +1,14 @@
-== N-genes 2.0 == (2010-04-13)
+== N-genes 2.1.0 == (2011-01-24)
+
+  * New minor features:
+    - Properties can import java.util.Properties
+    - Properties can import other Properties
+    - Properties can return the set of defined keys
+    - Properties can be loaded from a file with java.util.Properties syntax
+    - Implemented a GenerationMonitor which logs the best individual fitness
+      each generation.
+
+== N-genes 2.0.0 == (2010-04-13)
 
   * Rewrite of n-genes 0.9. Only the core was rewrote by scratch,
     the other features will be rewritten and included in the next
