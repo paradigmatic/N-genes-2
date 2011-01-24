@@ -23,6 +23,7 @@ package ngenes2.examples;
 import java.util.List;
 import ngenes2.builder.BasicDIBuilder;
 import ngenes2.evolver.Evolver;
+import ngenes2.evolver.monitor.BasicBestMonitor;
 import ngenes2.evolver.monitor.NopMonitor;
 import ngenes2.evolver.stop.MaxGeneration;
 import ngenes2.individual.LinearIndividual;
@@ -90,15 +91,15 @@ public class KnapSack {
 
   @SuppressWarnings("unchecked")
   public static void main(String[] args) {
-    final int indSize = 4;
+    final int indSize = 5;
     final int popSize = 100;
-    final double maxWeight = 200;
+    final double maxWeight = 321;
     final int maxGen = 500;
-    final double[] values = new double[] {1.0, 2.0, 3.0, 4.0 };
-    final double[] weights = new double[] {2.0, 1.0, 10.0, 14.0 };
+    final double[] values = new double[] {1.0, 2.0, 3.0, 4.0, 5.0 };
+    final double[] weights = new double[] {4.0, 3.0, 10.0, 14.0, 20.0 };
     Properties props = new Properties().put("chromosome_size", indSize)
             .put("population_size", popSize)
-            .put("max_gene_value", 50)
+            .put("max_gene_value", 35)
             .put("tournament_size",5)
             .put("max_generation", maxGen);
     BasicDIBuilder builder = new BasicDIBuilder()
@@ -111,7 +112,7 @@ public class KnapSack {
             .with(MaxGeneration.class)
             .with(MidBreakCrossover.class)
             .with(PointMutation.class)
-            .with(NopMonitor.class);
+            .with(BasicBestMonitor.class);
         Evolver evolver = builder.evolver();
         Population pop = builder.population();
         evolver.evolve(pop);
