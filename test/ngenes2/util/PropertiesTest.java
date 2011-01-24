@@ -1,6 +1,8 @@
 package ngenes2.util;
 
 import java.util.NoSuchElementException;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -137,7 +139,7 @@ public class PropertiesTest {
         Properties p2 = new Properties();
         p2.put("C", "c2").put("D", "d");
         Properties p3  = p1.putAll(p2);
-        assertTrue( p3 == p1 );
+        assertTrue(p3 == p1);
         assertEquals("c2", p1.getString("C") );
         assertEquals("d", p1.getString("D") );
         assertEquals("c2", p2.getString("C"));
@@ -157,5 +159,16 @@ public class PropertiesTest {
         assertEquals("d", p1.getString("D") );
         assertEquals("c2", p2.get("C"));
         assertFalse(p2.contains("B"));
+    }
+
+    @Test
+    public void keySet() {
+        Properties p = new Properties();
+        p.put("A","a").put("B","b").put("C","c");
+        Set<String> keys = p.keySet();
+        assertEquals(3,keys.size());
+        assertTrue( keys.contains("A"));
+        assertTrue( keys.contains("B"));
+        assertTrue( keys.contains("C"));
     }
 }

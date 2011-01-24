@@ -20,10 +20,7 @@
 
 package ngenes2.util;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Holds property for configuration purpose. This class is different from
@@ -184,8 +181,8 @@ public class Properties {
      * @return This property object with new properties added.
      */
     public Properties putAll(Properties that) {
-        for (String k : that.props.keySet()) {
-            this.props.put(k, that.props.get(k));
+        for (String k : that.keySet()) {
+            this.props.put(k, that.getString(k));
         }
         return this;
     }
@@ -202,6 +199,14 @@ public class Properties {
             this.props.put(k, that.get(k));
         }
         return this;
+    }
+
+    /**
+     * Return the set of all the keys with defined properties.
+     * @return An unmodifiable set with the properties keys.
+     */
+    public Set<String> keySet() {
+        return Collections.unmodifiableSet( props.keySet() );
     }
 
     private void check(String key) throws NoSuchElementException {
