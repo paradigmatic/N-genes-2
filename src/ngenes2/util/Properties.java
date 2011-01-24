@@ -20,6 +20,9 @@
 
 package ngenes2.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -213,5 +216,18 @@ public class Properties {
         if (!props.containsKey(key)) {
             throw new NoSuchElementException("Property '" + key + "' was not declared");
         }
+    }
+
+    /**
+     * Instanciates a new properties object from a file. The format is the same as java.util.Properties files.
+     * @param filename The file containing the properties
+     * @return A property object
+     * @throws IOException
+     */
+    public static Properties load(String filename) throws IOException {
+        java.util.Properties jProp = new java.util.Properties();
+        jProp.load(new FileInputStream(filename) );
+        Properties prop = new Properties();
+        return prop.putAll(jProp);
     }
 }
